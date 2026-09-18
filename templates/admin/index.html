@@ -1,0 +1,39 @@
+{% extends "admin/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard Overview{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-slate-500 font-semibold text-sm uppercase tracking-wider">Total Waitlist</h3>
+                <i data-lucide="user-plus" class="w-5 h-5 text-brand-500"></i>
+            </div>
+            <p class="text-3xl font-black text-slate-900">{{ stats.total_waitlist }}</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-slate-500 font-semibold text-sm uppercase tracking-wider">Vendor Apps</h3>
+                <i data-lucide="store" class="w-5 h-5 text-amber-500"></i>
+            </div>
+            <p class="text-3xl font-black text-slate-900">{{ stats.total_vendors }}</p>
+            <p class="text-xs text-amber-600 font-semibold mt-1">{{ stats.pending_vendors }} pending</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-slate-500 font-semibold text-sm uppercase tracking-wider">System Users</h3>
+                <i data-lucide="shield" class="w-5 h-5 text-purple-500"></i>
+            </div>
+            <p class="text-3xl font-black text-slate-900">{{ stats.total_users }}</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+            <div class="flex justify-between items-start mb-2">
+                <h3 class="text-slate-500 font-semibold text-sm uppercase tracking-wider">Today's Traffic</h3>
+                <i data-lucide="activity" class="w-5 h-5 text-emerald-500"></i>
+            </div>
+            <p class="text-3xl font-black text-slate-900">{{ stats.today_traffic }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

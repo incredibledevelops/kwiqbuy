@@ -1,0 +1,30 @@
+kwiqbuy/
+├── app.py
+├── requirements.txt
+├── email_service.py          ← NEW
+├── .env
+├── config.py
+├── templates/
+│   ├── index.html
+│   ├── vendor-register.html
+│   └── admin/
+│       ├── base.html
+│       ├── index.html
+│       ├── waitlist.html
+│       ├── vendors.html
+│       ├── insights.html
+│       ├── users.html
+│       └── audit-logs.html
+        emails/
+        ├── base.html                          ← NEW
+        ├── waitlist_admin.html                ← NEW
+        ├── waitlist_user.html                 ← NEW
+        ├── vendor_admin.html                  ← NEW
+        ├── vendor_user.html                   ← NEW
+        ├── vendor_approved.html               ← NEW
+        ├── vendor_rejected.html               ← NEW
+        ├── user_created_admin.html            ← NEW
+        └── user_created_credentials.html      ← NEW
+└── static/
+    └── js/
+        └── admin.js

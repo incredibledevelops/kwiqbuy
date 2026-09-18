@@ -1,0 +1,55 @@
+{% extends "admin/base.html" %}
+{% block title %}Audit Logs{% endblock %}
+{% block page_title %}Advanced Audit Trail{% endblock %}
+
+{% block content %}
+<div class="space-y-4">
+    <form method="GET" class="flex gap-2">
+        <input type="text" name="q" value="{{ search }}" placeholder="Search logs..."
+               class="px-4 py-2 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm w-full sm:w-64">
+        <button type="submit" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-4 py-2 rounded-xl text-sm transition">Search</button>
+    </form>
+
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <div class="overflow-x-auto scrollbar-hide">
+            <table class="w-full text-left border-collapse font-mono text-xs min-w-[900px]">
+                <thead>
+                    <tr class="bg-slate-900 text-slate-300 uppercase tracking-wider font-bold">
+                        <th class="p-3">Timestamp</th>
+                        <th class="p-3">Actor (Role)</th>
+                        <th class="p-3">Event Action</th>
+                        <th class="p-3">Target Resource</th>
+                        <th class="p-3">IP Address</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-slate-600">
+                    {% for l in logs %}
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-3 whitespace-nowrap">{{ l.timestamp }}</td>
+                        <td class="p-3 font-semibold
+                            {% if l.actor_role == 'Admin' %}text-purple-600
+                            {% elif l.actor_role == 'Manager' %}text-brand-600
+                            {% else %}text-slate-600{% endif %}">
+                            {{ l.actor_role }}
+                        </td>
+                        <td class="p-3">
+                            <span class="px-2 py-0.5 rounded border
+                                {% if 'DENIED' in l.event_action or 'ERROR' in l.event_action %}bg-red-50 text-red-700 border-red-200
+                                {% elif 'LOGIN' in l.event_action or 'APPROVE' in l.event_action %}bg-emerald-50 text-emerald-700 border-emerald-200
+                                {% else %}bg-slate-100 text-slate-700 border-slate-200{% endif %}">
+                                {{ l.event_action }}
+                            </span>
+                        </td>
+                        <td class="p-3">{{ l.target_resource }}</td>
+                        <td class="p-3 text-slate-400">{{ l.ip_address }}</td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="5" class="p-8 text-center text-slate-400">No logs found.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <p class="text-xs text-slate-400 text-center">Page {{ page }} · Up to 50 entries per page</p>
+</div>
+{% endblock %}

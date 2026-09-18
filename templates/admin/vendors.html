@@ -1,0 +1,85 @@
+{% extends "admin/base.html" %}
+{% block title %}Vendors{% endblock %}
+{% block page_title %}Vendor Applications{% endblock %}
+
+{% block content %}
+<div class="space-y-4">
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <div class="overflow-x-auto scrollbar-hide">
+            <table class="w-full text-left border-collapse text-sm min-w-[800px]">
+                <thead>
+                    <tr class="bg-slate-50 border-b border-slate-200 text-xs uppercase text-slate-500 font-bold">
+                        <th class="p-4">Store</th>
+                        <th class="p-4">Owner</th>
+                        <th class="p-4">Category</th>
+                        <th class="p-4">Applied</th>
+                        <th class="p-4">Status</th>
+                        <th class="p-4 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    {% for v in vendors %}
+                    <tr class="hover:bg-slate-50 transition" data-id="{{ v.id }}">
+                        <td class="p-4 font-bold text-slate-900">{{ v.store_name }}</td>
+                        <td class="p-4">
+                            <p class="font-medium text-slate-800">{{ v.owner_name }}</p>
+                            <p class="text-xs text-slate-500">{{ v.owner_email }}</p>
+                        </td>
+                        <td class="p-4 text-slate-500">{{ v.store_category }}</td>
+                        <td class="p-4 text-slate-500">{{ v.applied_at }}</td>
+                        <td class="p-4">
+                            <span class="status-badge text-xs font-bold px-2.5 py-1 rounded-md
+                                {% if v.status == 'Approved' %}bg-emerald-100 text-emerald-700 border border-emerald-200
+                                {% elif v.status == 'Rejected' %}bg-red-100 text-red-700 border border-red-200
+                                {% else %}bg-amber-100 text-amber-700 border border-amber-200{% endif %}">
+                                {{ v.status }}
+                            </span>
+                        </td>
+                        <td class="p-4 text-right space-x-3 whitespace-nowrap">
+                            {% if v.status != 'Approved' %}
+                            <button onclick="setVendorStatus(this, '{{ v.id }}', 'Approved')" class="text-emerald-600 hover:text-emerald-700 font-semibold text-xs">Approve</button>
+                            {% endif %}
+                            {% if v.status != 'Rejected' %}
+                            <button onclick="setVendorStatus(this, '{{ v.id }}', 'Rejected')" class="text-amber-600 hover:text-amber-700 font-semibold text-xs">Reject</button>
+                            {% endif %}
+                            <button onclick="deleteVendor(this, '{{ v.id }}')" class="text-red-500 hover:text-red-700 font-semibold text-xs">Delete</button>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="6" class="p-8 text-center text-slate-400 text-sm">No vendor applications yet.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+async function setVendorStatus(btn, id, status) {
+    const res = await fetch(`/admin/api/vendors/${id}`, {
+        method: 'PATCH',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({status})
+    });
+    const data = await res.json();
+    if (data.ok) {
+        showToast(`Vendor ${status.toLowerCase()}`, 'success');
+        setTimeout(() => location.reload(), 500);
+    } else showToast(data.error || 'Failed', 'error');
+}
+async function deleteVendor(btn, id) {
+    if (!confirm("Delete this vendor application?")) return;
+    const res = await fetch(`/admin/api/vendors/${id}`, {method: 'DELETE'});
+    const data = await res.json();
+    if (data.ok) {
+        const row = btn.closest('tr');
+        row.style.opacity = '0';
+        row.style.transition = 'opacity 0.3s';
+        setTimeout(() => row.remove(), 300);
+        showToast('Vendor deleted', 'success');
+    } else showToast('Failed', 'error');
+}
+</script>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "admin/base.html" %}
+{% block title %}Waitlist{% endblock %}
+{% block page_title %}Waitlist Management{% endblock %}
+
+{% block content %}
+<div class="space-y-4">
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <div class="overflow-x-auto scrollbar-hide">
+            <table class="w-full text-left border-collapse text-sm min-w-[600px]">
+                <thead>
+                    <tr class="bg-slate-50 border-b border-slate-200 text-xs uppercase text-slate-500 font-bold">
+                        <th class="p-4">Email</th>
+                        <th class="p-4">Source</th>
+                        <th class="p-4">Subscribed</th>
+                        <th class="p-4 text-right">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    {% for w in waitlist %}
+                    <tr class="hover:bg-slate-50 transition" data-id="{{ w.id }}">
+                        <td class="p-4 font-medium text-slate-800">{{ w.email }}</td>
+                        <td class="p-4 text-slate-500">{{ w.source }}</td>
+                        <td class="p-4 text-slate-500">{{ w.subscribed_at }}</td>
+                        <td class="p-4 text-right">
+                            <button onclick="deleteWaitlist(this, '{{ w.id }}')" class="text-red-500 font-semibold hover:underline text-xs">Remove</button>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="4" class="p-8 text-center text-slate-400 text-sm">No subscribers yet.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <p class="text-xs text-slate-400 text-center">Showing up to 20 per page · Page {{ page }}</p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+async function deleteWaitlist(btn, id) {
+    if (!confirm("Remove this subscriber?")) return;
+    const res = await fetch(`/admin/api/waitlist/${id}`, {method: 'DELETE'});
+    const data = await res.json();
+    if (data.ok) {
+        const row = btn.closest('tr');
+        row.style.opacity = '0';
+        row.style.transition = 'opacity 0.3s';
+        setTimeout(() => row.remove(), 300);
+        showToast('Subscriber removed', 'success');
+    } else showToast('Failed to remove', 'error');
+}
+</script>
+{% endblock %}

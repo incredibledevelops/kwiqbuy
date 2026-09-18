@@ -1,0 +1,56 @@
+{% extends "admin/base.html" %}
+{% block title %}Insights{% endblock %}
+{% block page_title %}Page Views & Insights{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+            <p class="text-slate-500 text-xs uppercase font-bold mb-1">Total Page Views</p>
+            <p class="text-2xl font-black text-slate-900">{{ "{:,}".format(total) }}</p>
+        </div>
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+            <p class="text-slate-500 text-xs uppercase font-bold mb-1">Unique Visitors</p>
+            <p class="text-2xl font-black text-slate-900">{{ "{:,}".format(unique) }}</p>
+        </div>
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+            <p class="text-slate-500 text-xs uppercase font-bold mb-1">Avg Time on Page</p>
+            <p class="text-2xl font-black text-slate-900">{{ avg_time }}s</p>
+        </div>
+        <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+            <p class="text-slate-500 text-xs uppercase font-bold mb-1">Bounce Rate</p>
+            <p class="text-2xl font-black text-slate-900">{{ bounce_rate }}%</p>
+        </div>
+    </div>
+
+    <div>
+        <h2 class="text-lg font-bold text-slate-900 mb-4">Top Performing Pages</h2>
+        <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+            <div class="overflow-x-auto scrollbar-hide">
+                <table class="w-full text-left border-collapse min-w-[700px]">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200 text-xs uppercase text-slate-500 font-bold">
+                            <th class="p-4">Page Path</th>
+                            <th class="p-4">Views</th>
+                            <th class="p-4">Unique Visitors</th>
+                            <th class="p-4">Bounce Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-sm">
+                        {% for p in top_pages %}
+                        <tr class="hover:bg-slate-50">
+                            <td class="p-4 font-medium text-slate-800">{{ p.path }}</td>
+                            <td class="p-4 text-slate-700">{{ "{:,}".format(p.views) }}</td>
+                            <td class="p-4 text-slate-700">{{ "{:,}".format(p.uniques) }}</td>
+                            <td class="p-4 text-slate-700">{{ p.bounce_rate }}%</td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="4" class="p-8 text-center text-slate-400">No traffic yet.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

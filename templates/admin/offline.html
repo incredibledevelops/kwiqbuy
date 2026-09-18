@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KwiqBuy Admin — Offline</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: {
+                brand: {50:'#eef2ff',100:'#e0e7ff',500:'#6366f1',600:'#4f46e5',700:'#4338ca'},
+            }}}
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @keyframes pulse-ring {
+            0%   { transform: scale(.85); opacity: .6; }
+            70%  { transform: scale(1.3);  opacity: 0;  }
+            100% { transform: scale(1.3);  opacity: 0;  }
+        }
+        .pulse-ring { animation: pulse-ring 1.8s cubic-bezier(.4,0,.6,1) infinite; }
+
+        @keyframes spin-slow { to { transform: rotate(360deg); } }
+        .spin-slow { animation: spin-slow 1.4s linear infinite; }
+    </style>
+</head>
+<body class="bg-slate-900 min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center relative overflow-hidden">
+
+        <!-- Animated offline icon -->
+        <div class="relative mx-auto mb-6 w-20 h-20">
+            <span class="absolute inset-0 rounded-full bg-red-500/30 pulse-ring"></span>
+            <span class="absolute inset-0 rounded-full bg-red-500/20 pulse-ring" style="animation-delay:.6s"></span>
+            <div class="relative w-20 h-20 rounded-full bg-red-100 flex items-center justify-center">
+                <i data-lucide="wifi-off" class="w-9 h-9 text-red-600"></i>
+            </div>
+        </div>
+
+        <h1 class="text-2xl font-black text-slate-900 mb-2">KwiqBuy is offline</h1>
+        <p class="text-slate-500 mb-6 leading-relaxed">
+            We can't reach the database. This is usually temporary — we're
+            automatically retrying.
+        </p>
+
+        <!-- Status panel -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-6 text-left">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold uppercase text-slate-500 tracking-wider">Status</span>
+                <span id="status-text" class="text-xs font-bold text-amber-600 flex items-center gap-1.5">
+                    <i data-lucide="loader-2" class="w-3.5 h-3.5 spin-slow"></i>
+                    Reconnecting…
+                </span>
+            </div>
+            <p id="last-check" class="text-xs text-slate-400 font-mono">—</p>
+        </div>
+
+        <button id="retry-btn" onclick="location.href='{{ url_for('admin_dashboard') }}'"
+                class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 rounded-xl transition shadow-lg text-base flex items-center justify-center gap-2">
+            <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+            Try Again
+        </button>
+
+        <p class="mt-5 text-xs text-slate-400">
+            If this persists, verify that MongoDB is running on your VPS.
+        </p>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        const statusText = document.getElementById('status-text');
+        const lastCheck  = document.getElementById('last-check');
+        const retryBtn   = document.getElementById('retry-btn');
+
+        // Build the health endpoint URL from a route so it always matches app.py
+        const HEALTH_URL = "{{ url_for('health') }}";
+        const DASHBOARD_URL = "{{ url_for('admin_dashboard') }}";
+
+        async function ping() {
+            const now = new Date();
+            lastCheck.textContent = `Last check: ${now.toLocaleTimeString()}`;
+
+            try {
+                const res = await fetch(HEALTH_URL, {cache: 'no-store'});
+                if (res.ok) {
+                    statusText.innerHTML = `<i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Online — reloading…`;
+                    lucide.createIcons();
+                    setTimeout(() => location.href = DASHBOARD_URL, 800);
+                } else {
+                    statusText.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 spin-slow"></i> Reconnecting…`;
+                    lucide.createIcons();
+                }
+            } catch (e) {
+                statusText.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 spin-slow"></i> Reconnecting…`;
+                lucide.createIcons();
+            }
+        }
+
+        // Poll every 6 seconds
+        setInterval(ping, 6000);
+
+        // Run an immediate check on load
+        ping();
+    </script>
+</body>
+</html>

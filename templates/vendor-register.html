@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KwiqBuy - Free Vendor Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff', 100: '#e0e7ff',
+                            500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 900: '#312e81',
+                        },
+                        accent: { 500: '#f59e0b', 600: '#d97706' }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen justify-between">
+
+    <!-- Header -->
+    <header class="w-full py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-2">
+                <div class="bg-brand-600 text-white p-2 rounded-xl">
+                    <i data-lucide="zap" class="w-6 h-6"></i>
+                </div>
+                <span class="text-2xl font-black tracking-tight text-slate-900">Kwiq<span class="text-brand-600">Buy</span></span>
+            </a>
+            <a href="/" class="text-sm font-semibold text-slate-600 hover:text-brand-600 flex items-center gap-1 transition">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Home
+            </a>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full">
+        <div class="bg-white rounded-3xl shadow-xl border border-slate-100 p-8 sm:p-10">
+
+            <div class="mb-8 text-center">
+                <div class="inline-flex items-center gap-2 bg-amber-100 text-amber-800 px-4 py-1.5 rounded-full text-xs font-bold mb-4 uppercase tracking-wider">
+                    <i data-lucide="store" class="w-3.5 h-3.5"></i> Early Access Vendor Program
+                </div>
+                <h1 class="text-3xl font-black text-slate-900 tracking-tight">Claim Your Free Storefront</h1>
+                <p class="text-slate-500 mt-2 text-sm">Register early to lock in your vendor spot with 100% free early access.</p>
+
+                <!-- ============================================================ -->
+                <!-- VENDORS SECURED COUNTER                                      -->
+                <!-- ============================================================ -->
+                <div class="mt-5 inline-flex items-center gap-2.5 bg-amber-50 border border-amber-200 px-4 py-2 rounded-full shadow-sm">
+                    <i data-lucide="badge-check" class="w-4 h-4 text-amber-600"></i>
+                    <span class="text-sm font-bold text-slate-800">
+                        <span id="vendor-count" data-target="{{ vendor_count }}">0</span>
+                        <span class="font-medium text-slate-600">vendors secured early access</span>
+                    </span>
+                </div>
+            </div>
+
+            <form id="vendor-form" class="space-y-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-2">Full Name</label>
+                        <input name="owner_name" type="text" required placeholder="John Doe"
+                               class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 mb-2">Business Email</label>
+                        <input name="owner_email" type="email" required placeholder="john@business.com"
+                               class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 mb-2">Store Name</label>
+                    <input name="store_name" type="text" required placeholder="My Awesome Store"
+                           class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 mb-2">What do you plan to sell?</label>
+                    <select name="store_category"
+                            class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm bg-white">
+                        <option>Electronics & Gadgets</option>
+                        <option>Fashion & Apparel</option>
+                        <option>Home & Living</option>
+                        <option>Beauty & Personal Care</option>
+                        <option>Other Retail Goods</option>
+                    </select>
+                </div>
+
+                <button id="vendor-btn" type="submit"
+                        class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-brand-500/20 text-base flex items-center justify-center gap-2 disabled:opacity-60">
+                    <span id="vendor-btn-text">Submit Free Application</span>
+                    <i data-lucide="check-circle" class="w-5 h-5"></i>
+                </button>
+                <p id="form-error" class="hidden text-red-600 text-sm text-center font-semibold"></p>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-6 text-center text-slate-400 text-sm">
+        <p>&copy; <span id="year"></span> KwiqBuy. All rights reserved.</p>
+    </footer>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 px-4">
+        <div id="modal-box" class="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full text-center transform scale-95 transition-transform duration-300">
+            <div class="mx-auto flex items-center justify-center h-14 w-14 rounded-full bg-amber-100 mb-5">
+                <i data-lucide="store" class="h-7 w-7 text-amber-600"></i>
+            </div>
+            <h3 class="text-2xl font-black text-slate-900 mb-2">Application Received!</h3>
+            <p class="text-slate-500 mb-8">Success! Your free vendor application has been submitted. We will contact you shortly.</p>
+            <button type="button" onclick="closeAndRedirect()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-brand-500/20 text-base">
+                Return to Home
+            </button>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // ============================================================
+        //    ANIMATED COUNTER
+        // ============================================================
+        function animateCounter(el, target, duration = 1200) {
+            if (!el) return;
+            const start = 0;
+            const startTime = performance.now();
+            function tick(now) {
+                const progress = Math.min((now - startTime) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const value = Math.floor(start + (target - start) * eased);
+                el.textContent = value.toLocaleString();
+                if (progress < 1) requestAnimationFrame(tick);
+                else el.textContent = target.toLocaleString();
+            }
+            requestAnimationFrame(tick);
+        }
+        window.addEventListener('DOMContentLoaded', () => {
+            const vEl = document.getElementById('vendor-count');
+            if (vEl) animateCounter(vEl, parseInt(vEl.dataset.target || '0', 10));
+        });
+
+        // ============================================================
+        //    VENDOR FORM SUBMIT
+        // ============================================================
+        const modal      = document.getElementById('success-modal');
+        const modalBox   = document.getElementById('modal-box');
+        const vendorForm = document.getElementById('vendor-form');
+        const errEl      = document.getElementById('form-error');
+        const vendorBtn  = document.getElementById('vendor-btn');
+        const vendorBtnT = document.getElementById('vendor-btn-text');
+
+        vendorForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            errEl.classList.add('hidden');
+
+            const fd = new FormData(vendorForm);
+            const payload = Object.fromEntries(fd.entries());
+
+            // Loading state
+            vendorBtn.disabled = true;
+            vendorBtnT.textContent = 'Submitting…';
+
+            try {
+                const res  = await fetch('/vendor-register', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+
+                if (data.ok) {
+                    modal.classList.remove('opacity-0', 'pointer-events-none');
+                    modalBox.classList.remove('scale-95');
+                    modalBox.classList.add('scale-100');
+
+                    // Bump the counter in real time
+                    const vEl = document.getElementById('vendor-count');
+                    if (vEl) {
+                        const newVal = parseInt(vEl.textContent.replace(/,/g, ''), 10) + 1;
+                        vEl.dataset.target = newVal;
+                        animateCounter(vEl, newVal, 500);
+                    }
+                } else {
+                    errEl.textContent = data.error || "Something went wrong.";
+                    errEl.classList.remove('hidden');
+                }
+            } catch (err) {
+                errEl.textContent = "Network error. Please try again.";
+                errEl.classList.remove('hidden');
+            } finally {
+                vendorBtn.disabled = false;
+                vendorBtnT.textContent = 'Submit Free Application';
+            }
+        });
+
+        function closeAndRedirect() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalBox.classList.remove('scale-100');
+            modalBox.classList.add('scale-95');
+            setTimeout(() => window.location.href = '/', 300);
+        }
+    </script>
+</body>
+</html>

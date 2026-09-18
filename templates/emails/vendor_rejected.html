@@ -1,0 +1,32 @@
+{% extends "emails/base.html" %}
+{% block title %}Application Update{% endblock %}
+
+{% block content %}
+<h1 style="margin:0 0 8px;font-size:22px;color:#1e293b;">Application update</h1>
+<p style="margin:0 0 20px;font-size:15px;color:#475569;line-height:1.6;">
+    Hi <strong>{{ owner_name }}</strong>,
+</p>
+<p style="margin:0 0 20px;font-size:15px;color:#475569;line-height:1.6;">
+    Thank you for your interest in selling on KwiqBuy. Unfortunately, we're unable
+    to approve <strong>{{ store_name }}</strong> at this time.
+</p>
+<p style="margin:0 0 20px;font-size:15px;color:#475569;line-height:1.6;">
+    This may be due to current capacity or category fit. You're welcome to reapply
+    in the future — we'd love to see you back.
+</p>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+       style="background:#fee2e2;border-radius:12px;padding:16px;margin-bottom:24px;">
+    <tr>
+        <td style="text-align:center;">
+            <p style="margin:0;font-size:15px;color:#991b1b;font-weight:700;">
+                Status: Not approved
+            </p>
+        </td>
+    </tr>
+</table>
+
+<p style="margin:0;font-size:14px;color:#64748b;">
+    — The KwiqBuy Team
+</p>
+{% endblock %}

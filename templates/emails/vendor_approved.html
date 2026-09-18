@@ -1,0 +1,33 @@
+{% extends "emails/base.html" %}
+{% block title %}Your store is approved!{% endblock %}
+
+{% block content %}
+<h1 style="margin:0 0 8px;font-size:24px;color:#1e293b;">Your store is approved! 🎉</h1>
+<p style="margin:0 0 20px;font-size:15px;color:#475569;line-height:1.6;">
+    Hi <strong>{{ owner_name }}</strong>,
+</p>
+<p style="margin:0 0 20px;font-size:15px;color:#475569;line-height:1.6;">
+    Fantastic news — <strong>{{ store_name }}</strong> has been approved to sell on KwiqBuy.
+    Your storefront is ready to go live at launch.
+</p>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+       style="background:#d1fae5;border-radius:12px;padding:16px;margin-bottom:24px;">
+    <tr>
+        <td style="text-align:center;">
+            <p style="margin:0;font-size:15px;color:#065f46;font-weight:700;">
+                ✅ Status: APPROVED
+            </p>
+        </td>
+    </tr>
+</table>
+
+<p style="margin:0 0 20px;font-size:15px;color:#475569;line-height:1.6;">
+    We'll be in touch with next steps for onboarding your products.
+</p>
+
+<a href="{{ base_url }}"
+   style="display:inline-block;background:#10b981;color:#ffffff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:10px;">
+    Visit KwiqBuy →
+</a>
+{% endblock %}

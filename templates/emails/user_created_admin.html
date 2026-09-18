@@ -1,0 +1,30 @@
+{% extends "emails/base.html" %}
+{% block title %}New System User Created{% endblock %}
+
+{% block content %}
+<h1 style="margin:0 0 8px;font-size:22px;color:#1e293b;">🔐 New System User Created</h1>
+<p style="margin:0 0 24px;font-size:14px;color:#64748b;">
+    A new user has been given access to the KwiqBuy admin panel.
+</p>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+       style="background:#ede9fe;border-radius:12px;padding:20px;margin-bottom:24px;">
+    <tr>
+        <td>
+            <p style="margin:0 0 4px;font-size:12px;color:#6d28d9;text-transform:uppercase;font-weight:700;letter-spacing:0.5px;">Name</p>
+            <p style="margin:0 0 14px;font-size:16px;color:#1e293b;font-weight:700;">{{ new_user_name }}</p>
+
+            <p style="margin:0 0 4px;font-size:12px;color:#6d28d9;text-transform:uppercase;font-weight:700;letter-spacing:0.5px;">Email</p>
+            <p style="margin:0 0 14px;font-size:14px;color:#1e293b;">{{ new_user_email }}</p>
+
+            <p style="margin:0 0 4px;font-size:12px;color:#6d28d9;text-transform:uppercase;font-weight:700;letter-spacing:0.5px;">Role</p>
+            <p style="margin:0;font-size:15px;color:#1e293b;font-weight:700;">{{ new_user_role }}</p>
+        </td>
+    </tr>
+</table>
+
+<a href="{{ base_url }}/admin/users"
+   style="display:inline-block;background:#4f46e5;color:#ffffff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:10px;">
+    Manage Users →
+</a>
+{% endblock %}

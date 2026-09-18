@@ -1,0 +1,37 @@
+{% extends "emails/base.html" %}
+{% block title %}Application Received{% endblock %}
+
+{% block content %}
+<h1 style="margin:0 0 8px;font-size:24px;color:#1e293b;">Application received ✅</h1>
+<p style="margin:0 0 20px;font-size:15px;color:#475569;line-height:1.6;">
+    Hi <strong>{{ owner_name }}</strong>,
+</p>
+<p style="margin:0 0 20px;font-size:15px;color:#475569;line-height:1.6;">
+    Great news — your early access application for
+    <strong>{{ store_name }}</strong> has been received. You've locked in your
+    <strong>100% free storefront</strong> on KwiqBuy.
+</p>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+       style="background:#eef2ff;border-radius:12px;padding:20px;margin-bottom:24px;">
+    <tr>
+        <td>
+            <p style="margin:0 0 4px;font-size:12px;color:#6366f1;text-transform:uppercase;font-weight:700;letter-spacing:0.5px;">Store</p>
+            <p style="margin:0 0 14px;font-size:16px;color:#1e293b;font-weight:700;">{{ store_name }}</p>
+
+            <p style="margin:0 0 4px;font-size:12px;color:#6366f1;text-transform:uppercase;font-weight:700;letter-spacing:0.5px;">Category</p>
+            <p style="margin:0;font-size:15px;color:#1e293b;font-weight:600;">{{ store_category }}</p>
+        </td>
+    </tr>
+</table>
+
+<p style="margin:0 0 20px;font-size:15px;color:#475569;line-height:1.6;">
+    Our team will review your application and you'll hear back from us soon.
+    Watch your inbox for an approval notification.
+</p>
+
+<a href="{{ base_url }}"
+   style="display:inline-block;background:#4f46e5;color:#ffffff;text-decoration:none;font-weight:700;font-size:14px;padding:12px 24px;border-radius:10px;">
+    Visit KwiqBuy →
+</a>
+{% endblock %}

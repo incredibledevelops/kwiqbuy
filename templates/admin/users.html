@@ -1,0 +1,314 @@
+{% extends "admin/base.html" %}
+{% block title %}Users{% endblock %}
+{% block page_title %}System User Management{% endblock %}
+
+{% block content %}
+<div class="space-y-4">
+    <div class="flex justify-between items-center">
+        <p class="text-sm text-slate-500">{{ users|length }} user(s)</p>
+        {% if session.user.role == 'Admin' %}
+        <button onclick="openAddUser()" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-4 py-2 rounded-xl text-sm transition flex items-center gap-2">
+            <i data-lucide="plus" class="w-4 h-4"></i> Add User
+        </button>
+        {% endif %}
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <div class="overflow-x-auto scrollbar-hide">
+            <table class="w-full text-left border-collapse text-sm min-w-[700px]">
+                <thead>
+                    <tr class="bg-slate-50 border-b border-slate-200 text-xs uppercase text-slate-500 font-bold">
+                        <th class="p-4">User Details</th>
+                        <th class="p-4">Role</th>
+                        <th class="p-4">Status</th>
+                        <th class="p-4 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                    {% for u in users %}
+                    <tr class="hover:bg-slate-50" data-id="{{ u.id }}" data-role="{{ u.role }}">
+                        <td class="p-4">
+                            <p class="font-bold text-slate-900">{{ u.full_name }}</p>
+                            <p class="text-xs text-slate-500">{{ u.email }}</p>
+                        </td>
+                        <td class="p-4">
+                            <span class="text-xs font-bold px-2.5 py-1 rounded-md border
+                                {% if u.role == 'Admin' %}bg-purple-100 text-purple-700 border-purple-200
+                                {% else %}bg-blue-100 text-blue-700 border-blue-200{% endif %}">
+                                {{ u.role }}
+                            </span>
+                        </td>
+                        <td class="p-4">
+                            <span class="text-xs font-bold {% if u.status == 'Active' %}text-emerald-500{% else %}text-red-500{% endif %}">
+                                {{ u.status }}
+                            </span>
+                        </td>
+                        <td class="p-4 text-right space-x-2 whitespace-nowrap">
+                            <button onclick="toggleUserStatus(this, '{{ u.id }}', '{{ u.status }}')" class="text-slate-400 hover:text-amber-600 transition">
+                                <i data-lucide="power" class="w-4 h-4 inline"></i>
+                            </button>
+                            <button onclick="askDeleteUser('{{ u.id }}', '{{ u.full_name|e }}', '{{ u.email|e }}', '{{ u.role }}')"
+                                    class="text-slate-400 hover:text-red-600 transition">
+                                <i data-lucide="trash-2" class="w-4 h-4 inline"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- ADD USER MODAL                                               -->
+<!-- ============================================================ -->
+<div id="add-user-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 px-4">
+    <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full transform scale-95 transition-transform duration-300">
+        <h3 class="text-xl font-black text-slate-900 mb-6">Add New System User</h3>
+        <form id="add-user-form" class="space-y-4">
+            <input name="full_name" type="text" required placeholder="Full name" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
+            <input name="email" type="email" required placeholder="Email" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
+            <input name="password" type="password" required placeholder="Password" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
+            <select name="role" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm bg-white">
+                <option value="Manager">Manager</option>
+                <option value="Admin">Admin</option>
+            </select>
+            <p id="add-user-error" class="hidden text-red-600 text-sm font-semibold"></p>
+            <div class="flex gap-2">
+                <button type="button" onclick="closeAddUser()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl">Cancel</button>
+                <button type="submit" class="flex-1 bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- CUSTOM DELETE CONFIRMATION MODAL                             -->
+<!-- ============================================================ -->
+<div id="delete-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[500] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 px-4">
+    <div id="delete-modal-box" class="bg-white rounded-3xl shadow-2xl max-w-md w-full transform scale-95 transition-transform duration-300 overflow-hidden">
+
+        <!-- Red warning header strip -->
+        <div class="bg-gradient-to-r from-red-500 to-red-600 h-1.5"></div>
+
+        <div class="p-8">
+            <!-- Icon -->
+            <div class="mx-auto mb-5 w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
+                <i data-lucide="alert-triangle" class="w-8 h-8 text-red-600"></i>
+            </div>
+
+            <!-- Title + description -->
+            <h3 class="text-xl font-black text-slate-900 text-center mb-2">
+                Delete this user?
+            </h3>
+            <p class="text-sm text-slate-500 text-center mb-6 leading-relaxed">
+                This action <b class="text-slate-700">cannot be undone</b>. The user will
+                permanently lose access to the admin panel.
+            </p>
+
+            <!-- Target user preview -->
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold text-sm shrink-0">
+                        <span id="delete-user-initials">--</span>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <p id="delete-user-name" class="font-bold text-slate-900 text-sm truncate">—</p>
+                        <p id="delete-user-email" class="text-xs text-slate-500 truncate">—</p>
+                    </div>
+                    <span id="delete-user-role"
+                          class="text-xs font-bold px-2.5 py-1 rounded-md border shrink-0
+                                 bg-blue-100 text-blue-700 border-blue-200">
+                        —
+                    </span>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex gap-3">
+                <button type="button" onclick="closeDeleteModal()"
+                        class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3.5 rounded-xl transition text-sm">
+                    Cancel
+                </button>
+                <button id="delete-confirm-btn" type="button" onclick="confirmDeleteUser()"
+                        class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-red-500/20 text-sm flex items-center justify-center gap-2">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    <span>Delete User</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const role = "{{ session.user.role }}";
+const myId = "{{ session.user.id }}";
+
+// ------------------------------------------------------------
+// ADD USER MODAL
+// ------------------------------------------------------------
+function openAddUser() {
+    const m = document.getElementById('add-user-modal');
+    m.classList.remove('opacity-0','pointer-events-none');
+    m.querySelector('div').classList.remove('scale-95');
+    m.querySelector('div').classList.add('scale-100');
+}
+function closeAddUser() {
+    const m = document.getElementById('add-user-modal');
+    m.classList.add('opacity-0','pointer-events-none');
+    m.querySelector('div').classList.remove('scale-100');
+    m.querySelector('div').classList.add('scale-95');
+    document.getElementById('add-user-form').reset();
+}
+
+document.getElementById('add-user-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const err = document.getElementById('add-user-error');
+    err.classList.add('hidden');
+    const fd = new FormData(e.target);
+    const res = await fetch('/admin/api/users', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(Object.fromEntries(fd.entries()))
+    });
+    const data = await res.json();
+    if (data.ok) { showToast('User created', 'success'); setTimeout(()=>location.reload(), 500); }
+    else { err.textContent = data.error; err.classList.remove('hidden'); }
+});
+
+// ------------------------------------------------------------
+// DELETE CONFIRMATION MODAL
+// ------------------------------------------------------------
+let pendingDeleteId   = null;
+let pendingDeleteRole = null;
+let pendingDeleteBtn  = null;
+
+function askDeleteUser(id, name, email, targetRole) {
+    // Block self-delete early with a friendly toast
+    if (id === myId) {
+        showToast("You can't delete yourself", 'error');
+        return;
+    }
+
+    pendingDeleteId   = id;
+    pendingDeleteRole = targetRole;
+    pendingDeleteBtn  = event.currentTarget;
+
+    // Populate preview
+    document.getElementById('delete-user-name').textContent  = name;
+    document.getElementById('delete-user-email').textContent = email;
+    document.getElementById('delete-user-role').textContent  = targetRole;
+
+    // Role badge color
+    const roleBadge = document.getElementById('delete-user-role');
+    roleBadge.className = 'text-xs font-bold px-2.5 py-1 rounded-md border shrink-0 ' +
+        (targetRole === 'Admin'
+            ? 'bg-purple-100 text-purple-700 border-purple-200'
+            : 'bg-blue-100 text-blue-700 border-blue-200');
+
+    // Initials
+    const initials = name.trim().split(/\s+/).map(w => w[0]).slice(0,2).join('').toUpperCase() || '--';
+    document.getElementById('delete-user-initials').textContent = initials;
+
+    // Show modal
+    const modal = document.getElementById('delete-modal');
+    const box   = document.getElementById('delete-modal-box');
+    modal.classList.remove('opacity-0','pointer-events-none');
+    box.classList.remove('scale-95');
+    box.classList.add('scale-100');
+
+    lucide.createIcons();
+}
+
+function closeDeleteModal() {
+    const modal = document.getElementById('delete-modal');
+    const box   = document.getElementById('delete-modal-box');
+    modal.classList.add('opacity-0','pointer-events-none');
+    box.classList.remove('scale-100');
+    box.classList.add('scale-95');
+
+    pendingDeleteId   = null;
+    pendingDeleteRole = null;
+    pendingDeleteBtn  = null;
+}
+
+async function confirmDeleteUser() {
+    if (!pendingDeleteId) return;
+
+    const btn = document.getElementById('delete-confirm-btn');
+    const originalHtml = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 spin-slow"></i><span>Deleting…</span>`;
+    lucide.createIcons();
+
+    try {
+        const res  = await fetch(`/admin/api/users/${pendingDeleteId}`, {method: 'DELETE'});
+        const data = await res.json();
+
+        if (data.ok) {
+            // Fade out the row smoothly
+            const row = pendingDeleteBtn ? pendingDeleteBtn.closest('tr') : null;
+            if (row) {
+                row.style.transition = 'opacity .3s, transform .3s';
+                row.style.opacity = '0';
+                row.style.transform = 'translateX(20px)';
+                setTimeout(() => row.remove(), 300);
+            }
+            closeDeleteModal();
+            showToast('User deleted successfully', 'success');
+        } else {
+            showToast(data.error || 'Failed to delete user', 'error');
+            btn.disabled = false;
+            btn.innerHTML = originalHtml;
+            lucide.createIcons();
+        }
+    } catch (e) {
+        showToast('Network error — please try again', 'error');
+        btn.disabled = false;
+        btn.innerHTML = originalHtml;
+        lucide.createIcons();
+    }
+}
+
+// ------------------------------------------------------------
+// STATUS TOGGLE
+// ------------------------------------------------------------
+async function toggleUserStatus(btn, id, current) {
+    if (role !== 'Admin') { showToast('Only Admins can change status', 'error'); return; }
+    const newStatus = current === 'Active' ? 'Suspended' : 'Active';
+    const res = await fetch(`/admin/api/users/${id}`, {
+        method: 'PATCH',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({status: newStatus})
+    });
+    const data = await res.json();
+    if (data.ok) { showToast(`User ${newStatus}`, 'success'); setTimeout(()=>location.reload(), 500); }
+    else showToast(data.error || 'Failed', 'error');
+}
+
+// ------------------------------------------------------------
+// KEYBOARD SHORTCUTS
+// ------------------------------------------------------------
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        const delModal = document.getElementById('delete-modal');
+        if (!delModal.classList.contains('pointer-events-none')) {
+            closeDeleteModal();
+        }
+    }
+    // Enter = confirm when delete modal is open
+    const delModal = document.getElementById('delete-modal');
+    if (e.key === 'Enter' && !delModal.classList.contains('pointer-events-none')) {
+        confirmDeleteUser();
+    }
+});
+
+// Also close modal when clicking the backdrop
+document.getElementById('delete-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'delete-modal') closeDeleteModal();
+});
+</script>
+{% endblock %}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}KwiqBuy{% endblock %}</title>
+</head>
+<body style="margin:0;padding:0;background:#f1f5f9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:#1e293b;">
+
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:32px 16px;">
+        <tr>
+            <td align="center">
+                <table role="presentation" width="100%" style="max-width:600px;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,0.06);">
+
+                    <!-- Header -->
+                    <tr>
+                        <td style="background:#4f46e5;padding:28px 32px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="background:#ffffff;padding:6px;border-radius:8px;vertical-align:middle;">
+                                        <span style="color:#4f46e5;font-size:18px;font-weight:900;line-height:1;">⚡</span>
+                                    </td>
+                                    <td style="padding-left:10px;">
+                                        <span style="color:#ffffff;font-size:22px;font-weight:900;letter-spacing:-0.5px;">
+                                            Kwiq<span style="color:#fbbf24;">Buy</span>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Body -->
+                    <tr>
+                        <td style="padding:32px;">
+                            {% block content %}{% endblock %}
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background:#f8fafc;padding:20px 32px;border-top:1px solid #e2e8f0;">
+                            <p style="margin:0;font-size:12px;color:#94a3b8;text-align:center;">
+                                &copy; {{ now_year }} KwiqBuy. All rights reserved.<br>
+                                You're receiving this email because you interacted with KwiqBuy.
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
