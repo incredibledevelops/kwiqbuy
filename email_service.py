@@ -114,15 +114,6 @@ def send_vendor_status_email(owner_email, owner_name, store_name, status, base_u
     )
 
 
-from datetime import datetime
-
-def _send(subject, recipients, html_body):
-    """Queue an email for async delivery."""
-    app = current_app._get_current_object()
-    msg = Message(subject=subject, recipients=recipients, html=html_body)
-    Thread(target=_send_async, args=(app, msg), daemon=True).start()
-
-
 # ---------- System user creation ----------
 def send_user_creation_emails(
     admin_email, new_user_email, new_user_name, new_user_role,

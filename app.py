@@ -1,6 +1,7 @@
 from flask import (
     Flask, render_template, request, jsonify, session,
-    redirect, url_for, abort, after_this_request,
+    redirect, url_for, abort, after_this_request, send_from_directory,
+    make_response
 )
 from pymongo import MongoClient, DESCENDING
 from pymongo.errors import ServerSelectionTimeoutError
@@ -14,6 +15,7 @@ from mail_ext import mail
 import email_service
 import re
 import uuid
+import os
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -26,10 +28,41 @@ mail.init_app(app)
 @app.context_processor
 def inject_globals():
     """Make these available in every template (incl. email templates)."""
+    site_mode = get_site_mode()
     return {
         "now_year": datetime.now(timezone.utc).year,
         "app_name": "KwiqBuy",
+        "site_mode": site_mode,
+        "site_mode_label": SITE_MODES.get(site_mode, {}).get("label", "Coming Soon"),
     }
+
+
+# ------------------ Site Mode Configuration ------------------
+SITE_MODES = {
+    "coming_soon": {
+        "label": "Coming Soon",
+        "template": "index.html",
+        "description": "Pre-launch waitlist mode",
+        "icon": "rocket",
+        "color": "brand",
+    },
+    "under_construction": {
+        "label": "Under Construction",
+        "template": "under-construction.html",
+        "description": "Site is being built",
+        "icon": "hammer",
+        "color": "amber",
+    },
+    "live": {
+        "label": "Live",
+        "template": "shop.html",
+        "description": "Full e-commerce experience",
+        "icon": "shopping-bag",
+        "color": "emerald",
+    },
+}
+
+DEFAULT_SITE_MODE = "coming_soon"
 
 
 # ------------------ MongoDB ------------------
@@ -41,6 +74,7 @@ waitlist_col = db["waitlist"]
 vendors_col  = db["vendors"]
 audit_col    = db["audit_logs"]
 views_col    = db["page_views"]
+settings_col = db["settings"]  # NEW: For site settings
 
 
 # ------------------ Non-fatal bootstrap ------------------
@@ -52,6 +86,7 @@ def bootstrap_indexes():
         vendors_col.create_index("owner_email", unique=True)
         views_col.create_index("session_id")
         views_col.create_index("timestamp")
+        settings_col.create_index("key", unique=True)
         client.admin.command("ping")
         safe_uri = app.config["MONGO_URI"].split("@")[-1]
         print(f"✅ MongoDB connected → {safe_uri}")
@@ -89,6 +124,23 @@ def seed_users():
 seed_users()
 
 
+# ------------------ Seed default settings ------------------
+def seed_settings():
+    try:
+        if not settings_col.find_one({"key": "site_mode"}):
+            settings_col.insert_one({
+                "key": "site_mode",
+                "value": DEFAULT_SITE_MODE,
+                "updated_at": datetime.now(timezone.utc),
+                "updated_by": "system",
+            })
+    except ServerSelectionTimeoutError:
+        print("⚠️  seed_settings() skipped — MongoDB unreachable.")
+
+
+seed_settings()
+
+
 # ------------------ Helpers ------------------
 EMAIL_RE = re.compile(r"^[^\s@]+@[^\s@]+\.[^\s@]+$")
 
@@ -109,6 +161,38 @@ def get_client_ip():
 def current_session_id():
     """Read the visitor's session cookie (set in before_request)."""
     return request.cookies.get("session_id") or "anon"
+
+
+def get_site_mode():
+    """Get the current site mode from database."""
+    try:
+        setting = settings_col.find_one({"key": "site_mode"})
+        if setting:
+            return setting.get("value", DEFAULT_SITE_MODE)
+    except ServerSelectionTimeoutError:
+        pass
+    return DEFAULT_SITE_MODE
+
+
+def set_site_mode(mode):
+    """Set the site mode in database."""
+    if mode not in SITE_MODES:
+        return False
+    try:
+        settings_col.update_one(
+            {"key": "site_mode"},
+            {
+                "$set": {
+                    "value": mode,
+                    "updated_at": utcnow(),
+                    "updated_by": session.get("user", {}).get("email", "unknown"),
+                }
+            },
+            upsert=True,
+        )
+        return True
+    except ServerSelectionTimeoutError:
+        return False
 
 
 def log_audit(action, target, actor=None):
@@ -229,15 +313,48 @@ def ensure_session_id():
 
 
 # ============================================================
+#                     SEO ROUTES
+# ============================================================
+
+@app.route("/robots.txt")
+def robots_txt():
+    """Serve robots.txt for SEO."""
+    return send_from_directory(
+        os.path.join(app.root_path, "static"),
+        "robots.txt",
+        mimetype="text/plain"
+    )
+
+
+@app.route("/sitemap.xml")
+def sitemap_xml():
+    """Serve sitemap.xml for SEO."""
+    return send_from_directory(
+        os.path.join(app.root_path, "static"),
+        "sitemap.xml",
+        mimetype="application/xml"
+    )
+
+
+# ============================================================
 #                     PUBLIC ROUTES
 # ============================================================
 
 @app.route("/")
 def home():
+    """
+    Main entry point. Routes based on site mode:
+    - coming_soon: Waitlist landing page
+    - under_construction: Construction page
+    - live: Full e-commerce shop
+    """
+    mode = get_site_mode()
+    
     # Track page view (best-effort)
     try:
         views_col.insert_one({
-            "page_path": "/index.html",
+            "page_path": "/",
+            "site_mode": mode,
             "session_id": current_session_id(),
             "time_on_page": 0,
             "bounced": False,
@@ -249,11 +366,24 @@ def home():
     # Public counters for social proof
     waitlist_count, vendor_count = get_public_counters()
 
-    return render_template(
-        "index.html",
-        waitlist_count=waitlist_count,
-        vendor_count=vendor_count,
-    )
+    if mode == "live":
+        return render_template(
+            "shop.html",
+            waitlist_count=waitlist_count,
+            vendor_count=vendor_count,
+        )
+    elif mode == "under_construction":
+        return render_template(
+            "under-construction.html",
+            waitlist_count=waitlist_count,
+            vendor_count=vendor_count,
+        )
+    else:
+        return render_template(
+            "index.html",
+            waitlist_count=waitlist_count,
+            vendor_count=vendor_count,
+        )
 
 
 @app.route("/vendor-register", methods=["GET", "POST"])
@@ -418,9 +548,6 @@ def health():
 # ============================================================
 #                     ADMIN PAGE ROUTES (render always)
 # ============================================================
-# NOTE: No @api_db_required here on purpose. If DB is down, we
-# render the page with EMPTY data + a flag, so base.html loads
-# and the JS health check shows the overlay on every page.
 
 @app.route("/admin/")
 @app.route("/admin/dashboard")
@@ -597,10 +724,52 @@ def admin_audit():
     )
 
 
+@app.route("/admin/settings")
+@login_required
+@role_required("Admin")
+def admin_settings():
+    """Site settings page — control site mode."""
+    current_mode = get_site_mode()
+    return render_template(
+        "admin/settings.html",
+        current_mode=current_mode,
+        site_modes=SITE_MODES,
+        page_name="settings",
+    )
+
+
 # ============================================================
 #                     ADMIN API ROUTES (need DB)
 # ============================================================
-# These return JSON 503 offline; the JS interceptor shows the overlay.
+
+@app.route("/admin/api/site-mode", methods=["POST"])
+@login_required
+@role_required("Admin")
+@api_db_required
+def api_set_site_mode():
+    """API endpoint to change site mode."""
+    data = request.get_json(silent=True) or {}
+    mode = data.get("mode", "").strip()
+
+    if mode not in SITE_MODES:
+        return jsonify({
+            "ok": False,
+            "error": f"Invalid mode. Must be one of: {', '.join(SITE_MODES.keys())}"
+        }), 400
+
+    if set_site_mode(mode):
+        log_audit("SITE_MODE_CHANGE", f"Mode: {mode}")
+        return jsonify({
+            "ok": True,
+            "mode": mode,
+            "label": SITE_MODES[mode]["label"],
+            "message": f"Site mode changed to {SITE_MODES[mode]['label']}"
+        })
+    return jsonify({
+        "ok": False,
+        "error": "Failed to update site mode. Database may be offline."
+    }), 503
+
 
 @app.route("/admin/api/waitlist/<wid>", methods=["DELETE"])
 @login_required

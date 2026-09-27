@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>KwiqBuy - Shop Smart, Buy Fast | Multi-Vendor Marketplace</title>
+    <meta name="description" content="Discover amazing deals on KwiqBuy. Shop from thousands of vendors for electronics, fashion, home goods, and more. Fast delivery, secure payments.">
+    <meta name="keywords" content="online shopping, marketplace, buy online, electronics, fashion, home goods, deals, KwiqBuy">
+    <meta name="author" content="KwiqBuy">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://kwiqbuy.com/shop">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kwiqbuy.com/shop">
+    <meta property="og:title" content="KwiqBuy - Shop Smart, Buy Fast">
+    <meta property="og:description" content="Discover amazing deals from thousands of vendors. Fast delivery, secure payments.">
+    <meta property="og:image" content="https://kwiqbuy.com/static/og-shop.png">
+    <meta property="og:site_name" content="KwiqBuy">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="KwiqBuy - Shop Smart, Buy Fast">
+    <meta name="twitter:description" content="Discover amazing deals from thousands of vendors.">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "OnlineStore",
+        "name": "KwiqBuy",
+        "url": "https://kwiqbuy.com",
+        "description": "The fastest multi-vendor marketplace",
+        "sameAs": ["https://twitter.com/kwiqbuy", "https://facebook.com/kwiqbuy"],
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://kwiqbuy.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe',
+                            300: '#a5b4fc', 400: '#818cf8', 500: '#6366f1',
+                            600: '#4f46e5', 700: '#4338ca', 800: '#3730a3', 900: '#312e81',
+                        },
+                        accent: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+
+    <!-- Announcement Bar -->
+    <div class="bg-brand-600 text-white text-center py-2 text-sm font-medium">
+        🎉 Grand Opening! Free shipping on orders over $50 · 
+        <a href="/vendor-register" class="underline hover:no-underline font-bold">Become a vendor →</a>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="/" class="flex items-center gap-2">
+                    <div class="bg-brand-600 text-white p-2 rounded-xl">
+                        <i data-lucide="zap" class="w-5 h-5"></i>
+                    </div>
+                    <span class="text-xl font-black tracking-tight text-slate-900">Kwiq<span class="text-brand-600">Buy</span></span>
+                </a>
+
+                <!-- Search Bar (Desktop) -->
+                <div class="hidden md:flex flex-1 max-w-xl mx-8">
+                    <div class="relative w-full">
+                        <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i>
+                        <input type="search" 
+                               placeholder="Search products, brands, and categories..."
+                               class="w-full pl-12 pr-4 py-2.5 rounded-xl bg-slate-100 border-0 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex items-center gap-2">
+                    <button class="p-2.5 text-slate-600 hover:text-brand-600 hover:bg-brand-50 rounded-xl transition" aria-label="Search">
+                        <i data-lucide="search" class="w-5 h-5 md:hidden"></i>
+                    </button>
+                    <button class="p-2.5 text-slate-600 hover:text-brand-600 hover:bg-brand-50 rounded-xl transition relative" aria-label="Wishlist">
+                        <i data-lucide="heart" class="w-5 h-5"></i>
+                    </button>
+                    <button class="p-2.5 text-slate-600 hover:text-brand-600 hover:bg-brand-50 rounded-xl transition relative" aria-label="Cart">
+                        <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                        <span class="absolute -top-0.5 -right-0.5 w-5 h-5 bg-brand-600 text-white text-xs font-bold rounded-full flex items-center justify-center">3</span>
+                    </button>
+                    <button class="p-2.5 text-slate-600 hover:text-brand-600 hover:bg-brand-50 rounded-xl transition" aria-label="Account">
+                        <i data-lucide="user" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Category Navigation -->
+    <nav class="bg-white border-b border-slate-200 overflow-x-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center gap-1 py-3 min-w-max">
+                <a href="#" class="px-4 py-2 text-sm font-semibold text-brand-600 bg-brand-50 rounded-lg">All</a>
+                <a href="#" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 rounded-lg transition">Electronics</a>
+                <a href="#" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 rounded-lg transition">Fashion</a>
+                <a href="#" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 rounded-lg transition">Home & Living</a>
+                <a href="#" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 rounded-lg transition">Beauty</a>
+                <a href="#" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 rounded-lg transition">Sports</a>
+                <a href="#" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 rounded-lg transition">Toys</a>
+                <a href="#" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-brand-600 hover:bg-slate-50 rounded-lg transition">Groceries</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Hero Banner -->
+        <section class="relative bg-gradient-to-r from-brand-600 to-purple-600 rounded-3xl overflow-hidden mb-10">
+            <div class="absolute inset-0 opacity-20">
+                <div class="absolute top-10 left-10 w-40 h-40 bg-white rounded-full filter blur-3xl"></div>
+                <div class="absolute bottom-10 right-10 w-60 h-60 bg-amber-400 rounded-full filter blur-3xl"></div>
+            </div>
+            <div class="relative z-10 px-8 py-12 sm:px-12 sm:py-16 text-white">
+                <span class="inline-block bg-white/20 backdrop-blur text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full mb-4">
+                    🎉 Grand Opening Sale
+                </span>
+                <h1 class="text-3xl sm:text-5xl font-black mb-4 leading-tight">
+                    Up to 70% Off<br>Everything
+                </h1>
+                <p class="text-white/80 text-lg mb-6 max-w-md">
+                    Shop thousands of products from verified vendors. Fast shipping, secure payments.
+                </p>
+                <a href="#products" class="inline-flex items-center gap-2 bg-white text-brand-600 font-bold px-6 py-3 rounded-xl hover:bg-slate-100 transition shadow-lg">
+                    Shop Now
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Featured Categories -->
+        <section class="mb-12">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-bold text-slate-900">Shop by Category</h2>
+                <a href="#" class="text-sm font-semibold text-brand-600 hover:text-brand-700 flex items-center gap-1">
+                    View All <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+                <a href="#" class="group bg-white border border-slate-200 rounded-2xl p-5 text-center hover:border-brand-300 hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-brand-600 transition">
+                        <i data-lucide="smartphone" class="w-6 h-6 text-brand-600 group-hover:text-white transition"></i>
+                    </div>
+                    <p class="text-sm font-semibold text-slate-800">Electronics</p>
+                </a>
+                <a href="#" class="group bg-white border border-slate-200 rounded-2xl p-5 text-center hover:border-brand-300 hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-pink-600 transition">
+                        <i data-lucide="shirt" class="w-6 h-6 text-pink-600 group-hover:text-white transition"></i>
+                    </div>
+                    <p class="text-sm font-semibold text-slate-800">Fashion</p>
+                </a>
+                <a href="#" class="group bg-white border border-slate-200 rounded-2xl p-5 text-center hover:border-brand-300 hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-emerald-600 transition">
+                        <i data-lucide="home" class="w-6 h-6 text-emerald-600 group-hover:text-white transition"></i>
+                    </div>
+                    <p class="text-sm font-semibold text-slate-800">Home & Living</p>
+                </a>
+                <a href="#" class="group bg-white border border-slate-200 rounded-2xl p-5 text-center hover:border-brand-300 hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-purple-600 transition">
+                        <i data-lucide="sparkles" class="w-6 h-6 text-purple-600 group-hover:text-white transition"></i>
+                    </div>
+                    <p class="text-sm font-semibold text-slate-800">Beauty</p>
+                </a>
+                <a href="#" class="group bg-white border border-slate-200 rounded-2xl p-5 text-center hover:border-brand-300 hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-amber-600 transition">
+                        <i data-lucide="dumbbell" class="w-6 h-6 text-amber-600 group-hover:text-white transition"></i>
+                    </div>
+                    <p class="text-sm font-semibold text-slate-800">Sports</p>
+                </a>
+                <a href="#" class="group bg-white border border-slate-200 rounded-2xl p-5 text-center hover:border-brand-300 hover:shadow-lg transition-all">
+                    <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:bg-red-600 transition">
+                        <i data-lucide="gamepad-2" class="w-6 h-6 text-red-600 group-hover:text-white transition"></i>
+                    </div>
+                    <p class="text-sm font-semibold text-slate-800">Toys & Games</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Products Grid -->
+        <section id="products">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-bold text-slate-900">Featured Products</h2>
+                <select class="text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500 bg-white">
+                    <option>Sort by: Popular</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                    <option>Newest First</option>
+                </select>
+            </div>
+
+            <!-- Products Placeholder (Demo) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product Card 1 -->
+                <div class="group bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-xl hover:border-brand-200 transition-all">
+                    <div class="relative aspect-square bg-slate-100 flex items-center justify-center overflow-hidden">
+                        <i data-lucide="smartphone" class="w-20 h-20 text-slate-300 group-hover:scale-110 transition-transform"></i>
+                        <span class="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">-30%</span>
+                        <button class="absolute top-3 right-3 w-9 h-9 bg-white rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 shadow-md opacity-0 group-hover:opacity-100 transition" aria-label="Add to wishlist">
+                            <i data-lucide="heart" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-xs text-brand-600 font-semibold mb-1">Electronics</p>
+                        <h3 class="font-bold text-slate-900 mb-2 line-clamp-2">Premium Wireless Headphones</h3>
+                        <div class="flex items-center gap-1 mb-3">
+                            <div class="flex text-amber-400">
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5"></i>
+                            </div>
+                            <span class="text-xs text-slate-400">(128)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-lg font-black text-slate-900">$89.99</span>
+                                <span class="text-sm text-slate-400 line-through ml-2">$129.99</span>
+                            </div>
+                            <button class="w-10 h-10 bg-brand-600 hover:bg-brand-700 text-white rounded-xl flex items-center justify-center transition shadow-lg shadow-brand-500/20" aria-label="Add to cart">
+                                <i data-lucide="plus" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="group bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-xl hover:border-brand-200 transition-all">
+                    <div class="relative aspect-square bg-slate-100 flex items-center justify-center overflow-hidden">
+                        <i data-lucide="watch" class="w-20 h-20 text-slate-300 group-hover:scale-110 transition-transform"></i>
+                        <span class="absolute top-3 left-3 bg-emerald-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">New</span>
+                        <button class="absolute top-3 right-3 w-9 h-9 bg-white rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 shadow-md opacity-0 group-hover:opacity-100 transition" aria-label="Add to wishlist">
+                            <i data-lucide="heart" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-xs text-brand-600 font-semibold mb-1">Wearables</p>
+                        <h3 class="font-bold text-slate-900 mb-2 line-clamp-2">Smart Fitness Watch Pro</h3>
+                        <div class="flex items-center gap-1 mb-3">
+                            <div class="flex text-amber-400">
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                            </div>
+                            <span class="text-xs text-slate-400">(89)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-lg font-black text-slate-900">$149.99</span>
+                            </div>
+                            <button class="w-10 h-10 bg-brand-600 hover:bg-brand-700 text-white rounded-xl flex items-center justify-center transition shadow-lg shadow-brand-500/20" aria-label="Add to cart">
+                                <i data-lucide="plus" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="group bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-xl hover:border-brand-200 transition-all">
+                    <div class="relative aspect-square bg-slate-100 flex items-center justify-center overflow-hidden">
+                        <i data-lucide="laptop" class="w-20 h-20 text-slate-300 group-hover:scale-110 transition-transform"></i>
+                        <span class="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">-15%</span>
+                        <button class="absolute top-3 right-3 w-9 h-9 bg-white rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 shadow-md opacity-0 group-hover:opacity-100 transition" aria-label="Add to wishlist">
+                            <i data-lucide="heart" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-xs text-brand-600 font-semibold mb-1">Computers</p>
+                        <h3 class="font-bold text-slate-900 mb-2 line-clamp-2">Ultra-Thin Laptop 14"</h3>
+                        <div class="flex items-center gap-1 mb-3">
+                            <div class="flex text-amber-400">
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5"></i>
+                            </div>
+                            <span class="text-xs text-slate-400">(256)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-lg font-black text-slate-900">$849.99</span>
+                                <span class="text-sm text-slate-400 line-through ml-2">$999.99</span>
+                            </div>
+                            <button class="w-10 h-10 bg-brand-600 hover:bg-brand-700 text-white rounded-xl flex items-center justify-center transition shadow-lg shadow-brand-500/20" aria-label="Add to cart">
+                                <i data-lucide="plus" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="group bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-xl hover:border-brand-200 transition-all">
+                    <div class="relative aspect-square bg-slate-100 flex items-center justify-center overflow-hidden">
+                        <i data-lucide="camera" class="w-20 h-20 text-slate-300 group-hover:scale-110 transition-transform"></i>
+                        <button class="absolute top-3 right-3 w-9 h-9 bg-white rounded-full flex items-center justify-center text-slate-400 hover:text-red-500 shadow-md opacity-0 group-hover:opacity-100 transition" aria-label="Add to wishlist">
+                            <i data-lucide="heart" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                    <div class="p-4">
+                        <p class="text-xs text-brand-600 font-semibold mb-1">Photography</p>
+                        <h3 class="font-bold text-slate-900 mb-2 line-clamp-2">Professional DSLR Camera</h3>
+                        <div class="flex items-center gap-1 mb-3">
+                            <div class="flex text-amber-400">
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                                <i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>
+                            </div>
+                            <span class="text-xs text-slate-400">(67)</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-lg font-black text-slate-900">$599.99</span>
+                            </div>
+                            <button class="w-10 h-10 bg-brand-600 hover:bg-brand-700 text-white rounded-xl flex items-center justify-center transition shadow-lg shadow-brand-500/20" aria-label="Add to cart">
+                                <i data-lucide="plus" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View More Button -->
+            <div class="text-center mt-10">
+                <button class="bg-white hover:bg-slate-50 text-slate-700 font-bold px-8 py-3.5 rounded-xl border border-slate-200 transition shadow-sm hover:shadow-md inline-flex items-center gap-2">
+                    Load More Products
+                    <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Trust Badges -->
+        <section class="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 text-center">
+                <div class="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="truck" class="w-6 h-6 text-brand-600"></i>
+                </div>
+                <h3 class="font-bold text-slate-900 mb-1">Free Shipping</h3>
+                <p class="text-sm text-slate-500">On orders over $50</p>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 text-center">
+                <div class="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="shield-check" class="w-6 h-6 text-emerald-600"></i>
+                </div>
+                <h3 class="font-bold text-slate-900 mb-1">Secure Payments</h3>
+                <p class="text-sm text-slate-500">100% protected</p>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 text-center">
+                <div class="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="rotate-ccw" class="w-6 h-6 text-amber-600"></i>
+                </div>
+                <h3 class="font-bold text-slate-900 mb-1">Easy Returns</h3>
+                <p class="text-sm text-slate-500">30-day return policy</p>
+            </div>
+            <div class="bg-white border border-slate-200 rounded-2xl p-6 text-center">
+                <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="headphones" class="w-6 h-6 text-purple-600"></i>
+                </div>
+                <h3 class="font-bold text-slate-900 mb-1">24/7 Support</h3>
+                <p class="text-sm text-slate-500">We're here to help</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="bg-brand-600 text-white p-2 rounded-xl">
+                            <i data-lucide="zap" class="w-5 h-5"></i>
+                        </div>
+                        <span class="text-xl font-black tracking-tight text-white">Kwiq<span class="text-brand-500">Buy</span></span>
+                    </div>
+                    <p class="text-sm text-slate-400 mb-4">The fastest multi-vendor marketplace. Buy fast, sell faster.</p>
+                    <div class="flex gap-3">
+                        <a href="#" class="w-9 h-9 bg-slate-800 hover:bg-brand-600 rounded-lg flex items-center justify-center transition" aria-label="Twitter">
+                            <i data-lucide="twitter" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 bg-slate-800 hover:bg-brand-600 rounded-lg flex items-center justify-center transition" aria-label="Facebook">
+                            <i data-lucide="facebook" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 bg-slate-800 hover:bg-brand-600 rounded-lg flex items-center justify-center transition" aria-label="Instagram">
+                            <i data-lucide="instagram" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">Shop</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-brand-500 transition">All Products</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition">Categories</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition">Deals</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition">New Arrivals</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">Sell</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="/vendor-register" class="hover:text-brand-500 transition">Become a Vendor</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition">Vendor Dashboard</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition">Seller Guide</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition">Fees & Pricing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-brand-500 transition">Help Center</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition">Returns</a></li>
+                        <li><a href="#" class="hover:text-brand-500 transition">Shipping Info</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-slate-400">&copy; <span id="year"></span> KwiqBuy. All rights reserved.</p>
+                <div class="flex items-center gap-6 text-sm">
+                    <a href="#" class="hover:text-brand-500 transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-brand-500 transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

@@ -3,8 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KwiqBuy - Coming Soon | Buy Fast, Sell Faster</title>
-    <!-- Tailwind CSS CDN -->
+    
+    <!-- Primary SEO Meta Tags -->
+    <title>KwiqBuy - Coming Soon | The Fastest Multi-Vendor Marketplace</title>
+    <meta name="description" content="KwiqBuy is launching soon! Join the waitlist for early access to the fastest multi-vendor marketplace. Vendors get 100% free storefronts. Buy fast, sell faster.">
+    <meta name="keywords" content="KwiqBuy, marketplace, multi-vendor, ecommerce, buy online, sell online, free storefront, vendor registration, online shopping">
+    <meta name="author" content="KwiqBuy">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://kwiqbuy.com/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kwiqbuy.com/">
+    <meta property="og:title" content="KwiqBuy - Coming Soon | The Fastest Multi-Vendor Marketplace">
+    <meta property="og:description" content="Join the waitlist for early access to KwiqBuy. Vendors get 100% free storefronts. Buy fast, sell faster.">
+    <meta property="og:image" content="https://kwiqbuy.com/static/og-image.png">
+    <meta property="og:site_name" content="KwiqBuy">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://kwiqbuy.com/">
+    <meta name="twitter:title" content="KwiqBuy - Coming Soon | The Fastest Multi-Vendor Marketplace">
+    <meta name="twitter:description" content="Join the waitlist for early access. Vendors get 100% free storefronts.">
+    <meta name="twitter:image" content="https://kwiqbuy.com/static/og-image.png">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "KwiqBuy",
+        "url": "https://kwiqbuy.com",
+        "description": "The fastest multi-vendor marketplace. Buy fast, sell faster.",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://kwiqbuy.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "KwiqBuy",
+        "url": "https://kwiqbuy.com",
+        "logo": "https://kwiqbuy.com/static/logo.png",
+        "sameAs": [
+            "https://twitter.com/kwiqbuy",
+            "https://facebook.com/kwiqbuy",
+            "https://instagram.com/kwiqbuy"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service",
+            "email": "support@kwiqbuy.com"
+        }
+    }
+    </script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -12,122 +74,222 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#eef2ff', 100: '#e0e7ff',
-                            500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 900: '#312e81',
+                            50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe',
+                            300: '#a5b4fc', 400: '#818cf8', 500: '#6366f1',
+                            600: '#4f46e5', 700: '#4338ca', 800: '#3730a3', 900: '#312e81',
                         },
-                        accent: { 500: '#f59e0b', 600: '#d97706' }
+                        accent: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'gradient': 'gradient 8s ease infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        gradient: {
+                            '0%, 100%': { backgroundPosition: '0% 50%' },
+                            '50%': { backgroundPosition: '100% 50%' },
+                        }
                     }
                 }
             }
         }
     </script>
+    
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        .gradient-bg {
+            background: linear-gradient(-45deg, #4f46e5, #7c3aed, #ec4899, #f59e0b);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen justify-between">
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Animated Background Elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-brand-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float"></div>
+        <div class="absolute top-1/2 -left-40 w-96 h-96 bg-amber-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float" style="animation-delay: -3s;"></div>
+        <div class="absolute -bottom-40 right-1/4 w-96 h-96 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-float" style="animation-delay: -1.5s;"></div>
+    </div>
 
     <!-- Header -->
-    <header class="w-full py-6">
+    <header class="w-full py-6 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <a href="/" class="flex items-center gap-2">
-                <div class="bg-brand-600 text-white p-2 rounded-xl">
+            <a href="/" class="flex items-center gap-2 group">
+                <div class="bg-brand-600 text-white p-2.5 rounded-2xl shadow-lg shadow-brand-500/30 group-hover:scale-105 transition-transform">
                     <i data-lucide="zap" class="w-6 h-6"></i>
                 </div>
                 <span class="text-2xl font-black tracking-tight text-slate-900">Kwiq<span class="text-brand-600">Buy</span></span>
             </a>
-            <nav>
-                <a href="/vendor-register" class="text-sm font-semibold text-brand-600 hover:text-brand-700 bg-brand-50 px-4 py-2 rounded-xl transition">
-                    Vendor Registration
+            <nav class="flex items-center gap-3">
+                <a href="/vendor-register" class="text-sm font-semibold text-brand-600 hover:text-brand-700 bg-brand-50 hover:bg-brand-100 px-5 py-2.5 rounded-xl transition-all flex items-center gap-2">
+                    <i data-lucide="store" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Become a Vendor</span>
+                    <span class="sm:hidden">Sell</span>
                 </a>
             </nav>
         </div>
     </header>
 
-    <!-- Main -->
-    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center flex-grow flex flex-col justify-center items-center">
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 py-12 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
 
-        <div class="inline-flex items-center gap-2 bg-brand-100 text-brand-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6 shadow-sm">
-            <i data-lucide="sparkles" class="w-4 h-4"></i> Something Massive is on the Way
-        </div>
-
-        <h1 class="text-4xl sm:text-6xl font-black text-slate-900 leading-tight tracking-tight mb-6">
-            We are launching <span class="text-brand-600 underline decoration-amber-400 decoration-4">soon!</span>
-        </h1>
-
-        <p class="text-lg sm:text-xl text-slate-600 max-w-2xl mb-8">
-            Get ready for a next-gen multi-vendor marketplace where you can discover top deals or scale your retail business effortlessly.
-        </p>
-
-        <!-- ============================================================ -->
-        <!-- LIVE SOCIAL PROOF COUNTERS                                   -->
-        <!-- ============================================================ -->
-        <div class="flex flex-wrap items-center justify-center gap-3 mb-8">
-
-            <!-- Waitlist counter -->
-            <div class="inline-flex items-center gap-2.5 bg-white border border-slate-200 px-4 py-2 rounded-full shadow-sm">
-                <span class="relative flex h-2.5 w-2.5">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur border border-brand-200 text-brand-700 px-5 py-2 rounded-full text-sm font-semibold mb-8 shadow-lg shadow-brand-500/10 animate-bounce-slow">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
                 </span>
-                <i data-lucide="users" class="w-4 h-4 text-brand-600"></i>
-                <span class="text-sm font-bold text-slate-800">
-                    <span id="waitlist-count" data-target="{{ waitlist_count }}">0</span>
-                    <span class="font-medium text-slate-500">joined the waitlist</span>
-                </span>
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                Something Massive is Launching Soon
             </div>
 
-            <!-- Vendor counter -->
-            <div class="inline-flex items-center gap-2.5 bg-amber-50 border border-amber-200 px-4 py-2 rounded-full shadow-sm">
-                <i data-lucide="store" class="w-4 h-4 text-amber-600"></i>
-                <span class="text-sm font-bold text-slate-800">
-                    <span id="vendor-count" data-target="{{ vendor_count }}">0</span>
-                    <span class="font-medium text-slate-600">vendors secured early access</span>
-                </span>
+            <!-- Headline -->
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 leading-tight tracking-tight mb-6">
+                Buy Fast.<br>
+                <span class="text-gradient">Sell Faster.</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Get ready for a next-generation multi-vendor marketplace where discovery meets speed. 
+                Whether you're hunting for deals or scaling your retail empire — 
+                <strong class="text-slate-800">KwiqBuy is built for you.</strong>
+            </p>
+
+            <!-- Social Proof Counters -->
+            <div class="flex flex-wrap items-center justify-center gap-4 mb-10">
+                <div class="inline-flex items-center gap-3 bg-white border border-slate-200 px-5 py-3 rounded-2xl shadow-lg shadow-slate-200/50">
+                    <span class="relative flex h-3 w-3">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                    </span>
+                    <i data-lucide="users" class="w-5 h-5 text-brand-600"></i>
+                    <span class="text-sm font-bold text-slate-800">
+                        <span id="waitlist-count" data-target="{{ waitlist_count }}">0</span>
+                        <span class="font-medium text-slate-500">on the waitlist</span>
+                    </span>
+                </div>
+
+                <div class="inline-flex items-center gap-3 bg-amber-50 border border-amber-200 px-5 py-3 rounded-2xl shadow-lg shadow-amber-200/50">
+                    <i data-lucide="store" class="w-5 h-5 text-amber-600"></i>
+                    <span class="text-sm font-bold text-slate-800">
+                        <span id="vendor-count" data-target="{{ vendor_count }}">0</span>
+                        <span class="font-medium text-slate-600">vendors secured early access</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Email Subscription Form -->
+            <div class="w-full max-w-lg mx-auto bg-white p-2.5 rounded-2xl shadow-2xl shadow-slate-300/50 border border-slate-100 mb-10">
+                <form id="notify-form" class="flex flex-col sm:flex-row gap-2">
+                    <div class="flex-grow relative">
+                        <i data-lucide="mail" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i>
+                        <input id="notify-email" type="email" required 
+                               placeholder="Enter your email address"
+                               aria-label="Email address for waitlist"
+                               class="w-full pl-12 pr-4 py-4 rounded-xl text-slate-800 bg-slate-50 border-0 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
+                    </div>
+                    <button id="notify-btn" type="submit"
+                            class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-brand-500/30 text-sm flex items-center justify-center gap-2 disabled:opacity-60 hover:scale-[1.02] active:scale-[0.98]">
+                        <span id="notify-btn-text">Notify Me</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </form>
+                <p id="notify-error" class="hidden text-red-600 text-xs font-semibold text-center py-2"></p>
+            </div>
+
+            <!-- Vendor CTA -->
+            <div class="bg-slate-900 text-white rounded-3xl p-8 max-w-xl mx-auto w-full text-left flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xl shadow-slate-900/30 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/20 rounded-full filter blur-2xl"></div>
+                <div class="relative z-10">
+                    <span class="text-amber-400 font-bold uppercase tracking-wider text-xs flex items-center gap-2 mb-2">
+                        <i data-lucide="crown" class="w-4 h-4"></i>
+                        Limited Time Offer
+                    </span>
+                    <h2 class="font-bold text-xl mb-1">Launch Your Store 100% Free</h2>
+                    <p class="text-slate-400 text-sm">Early vendors lock in lifetime free access</p>
+                </div>
+                <a href="/vendor-register" class="relative z-10 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-6 py-3.5 rounded-xl text-sm transition-all whitespace-nowrap hover:scale-105 active:scale-95 flex items-center gap-2">
+                    <i data-lucide="rocket" class="w-4 h-4"></i>
+                    Get Started
+                </a>
+            </div>
+
+            <!-- Features Preview -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-16 max-w-3xl mx-auto">
+                <div class="text-center">
+                    <div class="w-14 h-14 bg-brand-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="zap" class="w-7 h-7 text-brand-600"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-1">Lightning Fast</h3>
+                    <p class="text-sm text-slate-500">Optimized for speed at every step</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="shield-check" class="w-7 h-7 text-amber-600"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-1">Secure Payments</h3>
+                    <p class="text-sm text-slate-500">Bank-grade transaction security</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="truck" class="w-7 h-7 text-emerald-600"></i>
+                    </div>
+                    <h3 class="font-bold text-slate-900 mb-1">Fast Delivery</h3>
+                    <p class="text-sm text-slate-500">Quick shipping from local vendors</p>
+                </div>
             </div>
 
         </div>
-
-        <!-- Subscription Form -->
-        <div class="w-full max-w-md bg-white p-2 rounded-2xl shadow-xl border border-slate-100 mb-8">
-            <form id="notify-form" class="flex flex-col sm:flex-row gap-2">
-                <input id="notify-email" type="email" required placeholder="Enter your email address"
-                       class="flex-grow px-4 py-3 rounded-xl text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm">
-                <button id="notify-btn" type="submit"
-                        class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-6 py-3 rounded-xl transition shadow-lg shadow-brand-500/20 text-sm flex items-center justify-center gap-2 disabled:opacity-60">
-                    <span id="notify-btn-text">Notify Me</span>
-                    <i data-lucide="bell" class="w-4 h-4"></i>
-                </button>
-            </form>
-            <p id="notify-error" class="hidden text-red-600 text-xs font-semibold text-center py-2"></p>
-        </div>
-
-        <!-- Vendor Teaser Callout -->
-        <div class="bg-slate-900 text-white rounded-2xl p-6 max-w-lg w-full text-left flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
-            <div>
-                <span class="text-amber-400 font-bold uppercase tracking-wider text-xs">Are you a vendor?</span>
-                <h4 class="font-bold text-base">Launch your store for 100% Free</h4>
-            </div>
-            <a href="/vendor-register" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-sm transition whitespace-nowrap">
-                Early Access
-            </a>
-        </div>
-
     </main>
 
     <!-- Footer -->
-    <footer class="w-full py-6 text-center text-slate-400 text-sm">
-        <p>&copy; <span id="year"></span> KwiqBuy. All rights reserved.</p>
+    <footer class="w-full py-8 text-center text-slate-400 text-sm relative z-10">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p>&copy; <span id="year"></span> KwiqBuy. All rights reserved.</p>
+                <div class="flex items-center gap-6">
+                    <a href="/vendor-register" class="hover:text-brand-600 transition">For Vendors</a>
+                    <a href="mailto:support@kwiqbuy.com" class="hover:text-brand-600 transition">Contact</a>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <!-- Success Modal -->
-    <div id="success-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 px-4">
-        <div id="modal-box" class="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full text-center transform scale-95 transition-transform duration-300">
-            <div class="mx-auto flex items-center justify-center h-14 w-14 rounded-full bg-brand-100 mb-5">
-                <i data-lucide="check" class="h-7 w-7 text-brand-600"></i>
+    <div id="success-modal" 
+         class="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-50 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 px-4"
+         role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div id="modal-box" class="bg-white rounded-3xl shadow-2xl p-8 max-w-sm w-full text-center transform scale-95 transition-all duration-300">
+            <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-emerald-100 mb-5">
+                <i data-lucide="check" class="h-8 w-8 text-emerald-600"></i>
             </div>
-            <h3 class="text-2xl font-black text-slate-900 mb-2">You're on the list!</h3>
-            <p class="text-slate-500 mb-8">Thank you! We will notify you as soon as KwiqBuy officially launches.</p>
-            <button type="button" onclick="closeModal()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 rounded-xl transition shadow-lg shadow-brand-500/20 text-base">
-                Awesome
+            <h3 id="modal-title" class="text-2xl font-black text-slate-900 mb-2">You're on the list! 🎉</h3>
+            <p class="text-slate-500 mb-8 leading-relaxed">Thank you! We'll notify you the moment KwiqBuy launches. Get ready for something amazing.</p>
+            <button type="button" onclick="closeModal()" 
+                    class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-brand-500/30 text-base hover:scale-[1.02] active:scale-[0.98]">
+                Awesome, thanks!
             </button>
         </div>
     </div>
@@ -137,16 +299,15 @@
         document.getElementById('year').textContent = new Date().getFullYear();
 
         // ============================================================
-        //    ANIMATED COUNTER (ticks up from 0 → target on load)
+        //    ANIMATED COUNTER
         // ============================================================
-        function animateCounter(el, target, duration = 1200) {
+        function animateCounter(el, target, duration = 1500) {
             if (!el) return;
             const start = 0;
             const startTime = performance.now();
 
             function tick(now) {
                 const progress = Math.min((now - startTime) / duration, 1);
-                // easeOutCubic
                 const eased = 1 - Math.pow(1 - progress, 3);
                 const value = Math.floor(start + (target - start) * eased);
                 el.textContent = value.toLocaleString();
@@ -191,7 +352,6 @@
             const email = document.getElementById('notify-email').value.trim();
             if (!email) return;
 
-            // Loading state
             notifyBtn.disabled = true;
             notifyBtnT.textContent = 'Submitting…';
 
@@ -199,14 +359,13 @@
                 const res  = await fetch('/api/subscribe', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({email, source: 'Direct'})
+                    body: JSON.stringify({email, source: 'Coming Soon Page'})
                 });
                 const data = await res.json();
 
                 if (data.ok) {
                     showModal();
                     notifyForm.reset();
-                    // Bump the counter in real time
                     const wEl = document.getElementById('waitlist-count');
                     if (wEl) {
                         const newVal = parseInt(wEl.textContent.replace(/,/g, ''), 10) + 1;
@@ -224,6 +383,16 @@
                 notifyBtn.disabled = false;
                 notifyBtnT.textContent = 'Notify Me';
             }
+        });
+
+        // Close modal on backdrop click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Close modal on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
         });
     </script>
 </body>

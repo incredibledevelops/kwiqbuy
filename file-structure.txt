@@ -1,30 +1,36 @@
 kwiqbuy/
 ├── app.py
 ├── requirements.txt
-├── email_service.py          ← NEW
+├── email_service.py
 ├── .env
 ├── config.py
+├── mail_ext.py
+├── robots.txt
+├── sitemap.xml
 ├── templates/
-│   ├── index.html
+│   ├── index.html              (Coming Soon / Under Construction)
+│   ├── shop.html               (Main Ecommerce Page)
 │   ├── vendor-register.html
-│   └── admin/
+│   ├── admin/
+│   │   ├── base.html
+│   │   ├── index.html
+│   │   ├── waitlist.html
+│   │   ├── vendors.html
+│   │   ├── insights.html
+│   │   ├── users.html
+│   │   ├── audit-logs.html
+│   │   ├── settings.html       (NEW - Site Mode Control)
+│   │   └── login.html
+│   └── emails/
 │       ├── base.html
-│       ├── index.html
-│       ├── waitlist.html
-│       ├── vendors.html
-│       ├── insights.html
-│       ├── users.html
-│       └── audit-logs.html
-        emails/
-        ├── base.html                          ← NEW
-        ├── waitlist_admin.html                ← NEW
-        ├── waitlist_user.html                 ← NEW
-        ├── vendor_admin.html                  ← NEW
-        ├── vendor_user.html                   ← NEW
-        ├── vendor_approved.html               ← NEW
-        ├── vendor_rejected.html               ← NEW
-        ├── user_created_admin.html            ← NEW
-        └── user_created_credentials.html      ← NEW
+│       ├── waitlist_admin.html
+│       ├── waitlist_user.html
+│       ├── vendor_admin.html
+│       ├── vendor_user.html
+│       ├── vendor_approved.html
+│       ├── vendor_rejected.html
+│       ├── user_created_admin.html
+│       └── user_created_credentials.html
 └── static/
     └── js/
         └── admin.js

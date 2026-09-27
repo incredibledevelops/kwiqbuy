@@ -1,0 +1,184 @@
+{% extends "admin/base.html" %}
+{% block title %}Settings{% endblock %}
+{% block page_title %}Site Settings{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+
+    <!-- Site Mode Control Card -->
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+        <div class="bg-gradient-to-r from-brand-600 to-purple-600 px-6 py-5">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                    <i data-lucide="globe" class="w-6 h-6 text-white"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-white">Site Mode Control</h2>
+                    <p class="text-white/70 text-sm">Switch your public-facing website between different modes</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6">
+            <!-- Current Mode Display -->
+            <div class="mb-6 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <span class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Current Mode</span>
+                        <span id="current-mode-badge" 
+                              class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-bold
+                              {% if current_mode == 'live' %}bg-emerald-100 text-emerald-700
+                              {% elif current_mode == 'under_construction' %}bg-amber-100 text-amber-700
+                              {% else %}bg-brand-100 text-brand-700{% endif %}">
+                            <i data-lucide="{% if current_mode == 'live' %}shopping-bag{% elif current_mode == 'under_construction' %}hammer{% else %}rocket{% endif %}" class="w-4 h-4"></i>
+                            {{ site_modes[current_mode].label }}
+                        </span>
+                    </div>
+                    <span class="text-xs text-slate-400">Changes take effect immediately</span>
+                </div>
+            </div>
+
+            <!-- Mode Selection Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {% for mode_key, mode_data in site_modes.items() %}
+                <button onclick="setSiteMode('{{ mode_key }}')"
+                        data-mode="{{ mode_key }}"
+                        class="mode-btn group relative text-left p-5 rounded-2xl border-2 transition-all duration-200
+                               {% if current_mode == mode_key %}
+                                   border-brand-500 bg-brand-50 shadow-lg shadow-brand-500/10
+                               {% else %}
+                                   border-slate-200 bg-white hover:border-slate-300 hover:shadow-md
+                               {% endif %}">
+                    
+                    <!-- Selected indicator -->
+                    {% if current_mode == mode_key %}
+                    <div class="absolute top-3 right-3 w-6 h-6 bg-brand-500 rounded-full flex items-center justify-center">
+                        <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                    </div>
+                    {% endif %}
+
+                    <!-- Icon -->
+                    <div class="w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition
+                        {% if mode_key == 'live' %}bg-emerald-100 group-hover:bg-emerald-200
+                        {% elif mode_key == 'under_construction' %}bg-amber-100 group-hover:bg-amber-200
+                        {% else %}bg-brand-100 group-hover:bg-brand-200{% endif %}">
+                        <i data-lucide="{{ mode_data.icon }}" class="w-7 h-7
+                            {% if mode_key == 'live' %}text-emerald-600
+                            {% elif mode_key == 'under_construction' %}text-amber-600
+                            {% else %}text-brand-600{% endif %}"></i>
+                    </div>
+
+                    <!-- Label -->
+                    <h3 class="font-bold text-slate-900 text-lg mb-1">{{ mode_data.label }}</h3>
+                    <p class="text-sm text-slate-500">{{ mode_data.description }}</p>
+
+                    <!-- Status pill -->
+                    {% if current_mode == mode_key %}
+                    <span class="inline-block mt-3 text-xs font-bold uppercase tracking-wider text-brand-600">
+                        ● Active
+                    </span>
+                    {% else %}
+                    <span class="inline-block mt-3 text-xs font-bold uppercase tracking-wider text-slate-400 group-hover:text-slate-600">
+                        Click to activate
+                    </span>
+                    {% endif %}
+                </button>
+                {% endfor %}
+            </div>
+
+            <!-- Info box -->
+            <div class="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                <div class="flex gap-3">
+                    <i data-lucide="info" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
+                    <div class="text-sm text-amber-800">
+                        <p class="font-semibold mb-1">Mode descriptions:</p>
+                        <ul class="space-y-1 text-amber-700">
+                            <li><strong>Coming Soon:</strong> Shows waitlist signup page — perfect before launch</li>
+                            <li><strong>Under Construction:</strong> Shows "we're building" page — for maintenance</li>
+                            <li><strong>Live:</strong> Shows full e-commerce shop — your customers can browse and buy</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6">
+        <h3 class="font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <i data-lucide="zap" class="w-5 h-5 text-brand-600"></i>
+            Quick Actions
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <a href="/" target="_blank" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition group">
+                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm group-hover:shadow">
+                    <i data-lucide="external-link" class="w-5 h-5 text-slate-600"></i>
+                </div>
+                <div>
+                    <p class="font-semibold text-slate-800 text-sm">View Live Site</p>
+                    <p class="text-xs text-slate-500">Open homepage in new tab</p>
+                </div>
+            </a>
+            <a href="{{ url_for('admin_waitlist') }}" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition group">
+                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm group-hover:shadow">
+                    <i data-lucide="users" class="w-5 h-5 text-brand-600"></i>
+                </div>
+                <div>
+                    <p class="font-semibold text-slate-800 text-sm">View Waitlist</p>
+                    <p class="text-xs text-slate-500">See all subscribers</p>
+                </div>
+            </a>
+            <a href="{{ url_for('admin_vendors') }}" class="flex items-center gap-3 p-4 bg-slate-50 hover:bg-slate-100 rounded-xl transition group">
+                <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm group-hover:shadow">
+                    <i data-lucide="store" class="w-5 h-5 text-amber-600"></i>
+                </div>
+                <div>
+                    <p class="font-semibold text-slate-800 text-sm">Review Vendors</p>
+                    <p class="text-xs text-slate-500">Pending applications</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+async function setSiteMode(mode) {
+    // Confirm if switching to live
+    if (mode === 'live') {
+        const confirmed = confirm(
+            "⚠️ Switch to LIVE mode?\n\n" +
+            "Your website will become publicly accessible with the full e-commerce shop.\n\n" +
+            "Are you sure you want to proceed?"
+        );
+        if (!confirmed) return;
+    }
+
+    // Show loading state
+    const btns = document.querySelectorAll('.mode-btn');
+    btns.forEach(btn => btn.disabled = true);
+
+    try {
+        const res = await fetch('/admin/api/site-mode', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({mode})
+        });
+        const data = await res.json();
+
+        if (data.ok) {
+            showToast(data.message || 'Site mode updated!', 'success');
+            setTimeout(() => location.reload(), 800);
+        } else {
+            showToast(data.error || 'Failed to update site mode', 'error');
+            btns.forEach(btn => btn.disabled = false);
+        }
+    } catch (e) {
+        showToast('Network error — please try again', 'error');
+        btns.forEach(btn => btn.disabled = false);
+    }
+}
+</script>
+{% endblock %}

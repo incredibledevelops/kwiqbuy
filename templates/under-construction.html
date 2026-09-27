@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>KwiqBuy - Under Construction | We're Building Something Amazing</title>
+    <meta name="description" content="KwiqBuy is under construction. We're building the fastest multi-vendor marketplace. Check back soon or join our waitlist for early access.">
+    <meta name="keywords" content="KwiqBuy, marketplace, under construction, coming soon, ecommerce">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://kwiqbuy.com/">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kwiqbuy.com/">
+    <meta property="og:title" content="KwiqBuy - Under Construction">
+    <meta property="og:description" content="We're building something amazing. Check back soon!">
+    <meta property="og:image" content="https://kwiqbuy.com/static/og-image.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚧</text></svg>">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff', 100: '#e0e7ff', 500: '#6366f1',
+                            600: '#4f46e5', 700: '#4338ca',
+                        },
+                        accent: { 500: '#f59e0b', 600: '#d97706' }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        @keyframes swing {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+        .animate-swing { animation: swing 2s ease-in-out infinite; }
+        
+        @keyframes construction {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-construction { animation: construction 1.5s ease-in-out infinite; }
+        
+        .stripes {
+            background: repeating-linear-gradient(
+                45deg,
+                #f59e0b,
+                #f59e0b 20px,
+                #1e293b 20px,
+                #1e293b 40px
+            );
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Construction Stripes Banner -->
+    <div class="stripes h-4 w-full"></div>
+
+    <!-- Header -->
+    <header class="w-full py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-2">
+                <div class="bg-amber-500 text-slate-900 p-2.5 rounded-2xl">
+                    <i data-lucide="zap" class="w-6 h-6"></i>
+                </div>
+                <span class="text-2xl font-black tracking-tight text-white">Kwiq<span class="text-amber-500">Buy</span></span>
+            </a>
+            <nav>
+                <a href="/vendor-register" class="text-sm font-semibold text-amber-500 hover:text-amber-400 transition flex items-center gap-2">
+                    <i data-lucide="store" class="w-4 h-4"></i>
+                    Vendor Registration
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 py-12">
+        <div class="max-w-3xl mx-auto text-center">
+
+            <!-- Animated Icon -->
+            <div class="relative mx-auto mb-8 w-32 h-32">
+                <div class="absolute inset-0 bg-amber-500/20 rounded-full animate-ping"></div>
+                <div class="relative w-32 h-32 bg-amber-500/10 rounded-full flex items-center justify-center border-2 border-amber-500/30">
+                    <div class="animate-swing">
+                        <i data-lucide="hammer" class="w-16 h-16 text-amber-500"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-500/30 text-amber-400 px-5 py-2 rounded-full text-sm font-semibold mb-6">
+                <i data-lucide="construction" class="w-4 h-4 animate-construction"></i>
+                Under Construction
+            </div>
+
+            <!-- Headline -->
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight mb-6">
+                We're Building<br>
+                <span class="text-amber-500">Something Amazing</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-slate-400 max-w-xl mx-auto mb-10 leading-relaxed">
+                Our team is working hard to bring you the fastest multi-vendor marketplace. 
+                We'll be back online shortly with an incredible experience.
+            </p>
+
+            <!-- Progress Indicator -->
+            <div class="max-w-md mx-auto mb-10">
+                <div class="flex justify-between text-sm mb-2">
+                    <span class="text-slate-400">Development Progress</span>
+                    <span class="text-amber-500 font-bold">75%</span>
+                </div>
+                <div class="h-3 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-amber-500 to-amber-400 rounded-full" style="width: 75%"></div>
+                </div>
+            </div>
+
+            <!-- Status Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto mb-10">
+                <div class="bg-slate-800/50 border border-slate-700 rounded-2xl p-5 text-center">
+                    <i data-lucide="check-circle" class="w-6 h-6 text-emerald-500 mx-auto mb-2"></i>
+                    <p class="text-sm font-semibold text-white">Frontend</p>
+                    <p class="text-xs text-slate-400">Completed</p>
+                </div>
+                <div class="bg-slate-800/50 border border-amber-500/30 rounded-2xl p-5 text-center">
+                    <i data-lucide="loader-2" class="w-6 h-6 text-amber-500 mx-auto mb-2 animate-spin"></i>
+                    <p class="text-sm font-semibold text-white">Backend</p>
+                    <p class="text-xs text-amber-400">In Progress</p>
+                </div>
+                <div class="bg-slate-800/50 border border-slate-700 rounded-2xl p-5 text-center">
+                    <i data-lucide="clock" class="w-6 h-6 text-slate-500 mx-auto mb-2"></i>
+                    <p class="text-sm font-semibold text-white">Launch</p>
+                    <p class="text-xs text-slate-400">Coming Soon</p>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 max-w-lg mx-auto">
+                <h2 class="font-bold text-lg mb-2">Want to be notified when we launch?</h2>
+                <p class="text-slate-400 text-sm mb-4">Join our waitlist and get early access.</p>
+                <form id="notify-form" class="flex flex-col sm:flex-row gap-2">
+                    <input id="notify-email" type="email" required 
+                           placeholder="Enter your email"
+                           class="flex-grow px-4 py-3 rounded-xl bg-slate-900 border border-slate-600 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm">
+                    <button type="submit" 
+                            class="bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold px-6 py-3 rounded-xl transition text-sm flex items-center justify-center gap-2">
+                        <span id="notify-btn-text">Notify Me</span>
+                        <i data-lucide="bell" class="w-4 h-4"></i>
+                    </button>
+                </form>
+                <p id="notify-error" class="hidden text-red-400 text-xs font-semibold text-center mt-2"></p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-6 text-center text-slate-500 text-sm">
+        <p>&copy; <span id="year"></span> KwiqBuy. All rights reserved.</p>
+    </footer>
+
+    <!-- Construction Stripes Banner -->
+    <div class="stripes h-4 w-full"></div>
+
+    <script>
+        lucide.createIcons();
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const notifyForm = document.getElementById('notify-form');
+        const notifyErr = document.getElementById('notify-error');
+        const notifyBtnT = document.getElementById('notify-btn-text');
+
+        notifyForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            notifyErr.classList.add('hidden');
+            
+            const email = document.getElementById('notify-email').value.trim();
+            if (!email) return;
+            
+            notifyBtnT.textContent = 'Submitting…';
+            
+            try {
+                const res = await fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({email, source: 'Under Construction Page'})
+                });
+                const data = await res.json();
+                
+                if (data.ok) {
+                    notifyBtnT.textContent = '✓ Subscribed!';
+                    notifyForm.reset();
+                } else {
+                    notifyErr.textContent = data.error || 'Something went wrong.';
+                    notifyErr.classList.remove('hidden');
+                    notifyBtnT.textContent = 'Notify Me';
+                }
+            } catch (err) {
+                notifyErr.textContent = 'Network error. Please try again.';
+                notifyErr.classList.remove('hidden');
+                notifyBtnT.textContent = 'Notify Me';
+            }
+        });
+    </script>
+</body>
+</html>
