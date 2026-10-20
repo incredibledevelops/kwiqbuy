@@ -1,0 +1,70 @@
+mr-robert-fries-backend/
+├── app/
+│   ├── api/
+│   │   └── v1/
+│   │       ├── router.py               # Aggregates all v1 routers into a single APIRouter
+│   │       └── routers/
+│   │           ├── analytics.py        # Revenue, daily orders & top-seller stats
+│   │           ├── auth.py             # Admin/staff OAuth2 JWT login & token management
+│   │           ├── builder.py          # Custom fry bowl bases, proteins, sauces & toppings
+│   │           ├── categories.py       # Menu categories CRUD
+│   │           ├── delivery_zones.py   # Delivery locations (UG Legon, East Legon, KNUST, etc.)
+│   │           ├── menu.py             # Pre-set menu items CRUD & stock availability toggle
+│   │           ├── orders.py           # Checkout, customer tracking & kitchen order processing
+│   │           ├── payments.py         # Paystack transaction init, verification & webhooks
+│   │           └── uploads.py          # Image upload endpoint saving to local storage
+│   ├── core/
+│   │   ├── config.py                   # Pydantic BaseSettings loading environment variables
+│   │   ├── database.py                 # Motor/Beanie Async MongoDB client & lifecycle init
+│   │   ├── deps.py                     # FastAPI dependency injection (auth checks, DB sessions)
+│   │   ├── paystack.py                 # Paystack REST client wrapper & HMAC signature verification
+│   │   └── security.py                 # Bcrypt password hashing & JWT encode/decode logic
+│   ├── crud/                           # Database query & mutation layer (Data Access Object pattern)
+│   │   ├── analytics.py
+│   │   ├── builder.py
+│   │   ├── category.py
+│   │   ├── delivery_zone.py
+│   │   ├── menu.py
+│   │   ├── order.py
+│   │   ├── payment.py
+│   │   └── user.py
+│   ├── models/                         # MongoDB Document models (using Beanie ODM or PyMongo/Motor)
+│   │   ├── builder_option.py
+│   │   ├── category.py
+│   │   ├── delivery_zone.py
+│   │   ├── menu_item.py
+│   │   ├── order.py
+│   │   ├── payment.py
+│   │   └── user.py
+│   ├── schemas/                        # Pydantic models for API request validation & responses
+│   │   ├── analytics.py
+│   │   ├── auth.py
+│   │   ├── builder.py
+│   │   ├── category.py
+│   │   ├── delivery_zone.py
+│   │   ├── menu.py
+│   │   ├── order.py
+│   │   ├── payment.py
+│   │   └── upload.py
+│   ├── utils/                          # Helper utilities
+│   │   ├── file_storage.py             # Image validation, formatting & local disk saving
+│   │   └── generators.py               # Human-readable order reference generator (e.g., MRF-20261007-8942)
+│   └── main.py                         # FastAPI instance, CORS middleware, static mounts & startup hooks
+├── scripts/
+│   └── seed_data.py                    # Seeding initial Admin account, delivery zones & menu items
+├── tests/
+│   ├── conftest.py                     # Async TestClient setup & test DB fixtures
+│   ├── test_builder.py
+│   ├── test_menu.py
+│   ├── test_orders.py
+│   └── test_payments.py
+├── uploads/                            # Dedicated local storage folder for uploaded images
+│   ├── builder/                        # Ingredient/option images
+│   ├── categories/                     # Category banner images
+│   └── menu/                           # Menu item images
+├── .env.example                        # Template for environment configuration
+├── .gitignore                          # Ignores virtualenv, .env, and uploads/ static assets
+├── Dockerfile                          # Docker image container setup
+├── docker-compose.yml                  # Multi-container dev environment (FastAPI + MongoDB + Mongo Express)
+├── README.md                           # Documentation for setup and deployment
+└── requirements.txt                    # Python dependencies

@@ -1,0 +1,125 @@
+# ============================================
+# Mr. Robert's Fries — Root .gitignore
+# ============================================
+
+# ---------- Environment & Secrets ----------
+.env
+.env.local
+.env.*.local
+.env.production
+.env.staging
+*.pem
+*.key
+secrets/
+
+# ---------- Node / Frontend ----------
+node_modules/
+.next/
+out/
+build/
+dist/
+.swc/
+.turbo/
+.vercel/
+.npm/
+.pnpm-store/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npmrc
+
+# ---------- Python / Backend ----------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+.venv/
+venv/
+ENV/
+env/
+.envrc
+
+# ---------- IDE / Editor ----------
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+*.log
+
+# ---------- OS ----------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# ---------- Uploads (user content) ----------
+# Keep folder structure but ignore actual files
+backend/uploads/*
+!backend/uploads/.gitkeep
+!backend/uploads/menu/.gitkeep
+!backend/uploads/categories/.gitkeep
+!backend/uploads/builder/.gitkeep
+!backend/uploads/reviews/.gitkeep
+
+# ---------- Logs & Runtime ----------
+*.log
+logs/
+*.pid
+*.seed
+*.pid.lock
+coverage/
+.nyc_output/
+
+# ---------- Temp files ----------
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+.cache/
+tmp/
+temp/
+
+# ---------- Docker overrides ----------
+docker-compose.override.yml

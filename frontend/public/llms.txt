@@ -1,0 +1,35 @@
+# Mr. Robert's Fries
+
+> Ghana's most loved loaded fries and crispy chicken. Fresh, hot, delivered fast to Accra and Kumasi.
+
+## About
+Mr. Robert's Fries serves hand-cut golden fries loaded with cheese, signature sauces, and proteins. Signature items include The Robert Special Bowl, Gourmet Loaded Bacon & Beef Fries, and Sticky Sweet & Spicy Wings. Orders can be paid with MTN Mobile Money, Telecel Cash, AT Money, or card via Paystack.
+
+## Service Areas
+- Accra: East Legon, UG Legon, UPSA, Adjiringanor, Madina, Adenta
+- Kumasi: KNUST Campus, Bomso, Ayeduase, Adum, Kejetia
+
+## Hours
+Monday–Sunday, 11:00–23:00 (Ghana Time, GMT+0)
+
+## Contact
+- Phone/WhatsApp: +233 59 923 3488
+- Instagram: https://www.instagram.com/mrobertfries/
+
+## Key Pages
+- Menu: /#menu
+- Custom Bowl Builder: /#builder
+- Delivery Areas: /#hubs
+- Order tracking: /order/[reference]
+
+## Payment
+- MTN Mobile Money (MoMo)
+- Telecel Cash
+- AT Money
+- Card (Visa, Mastercard)
+- All via Paystack
+
+## Order Policy
+- Delivery fee ranges GH₵ 15–30 depending on zone
+- Loyalty program: 1 point per GH₵ 1 spent; 100 points = GH₵ 1 off
+- Referral program: Give GH₵ 10, Get GH₵ 10 in loyalty points
