@@ -1,5 +1,5 @@
 # ============================================
-# Mr. Robert's Fries — Root .gitignore
+# KwiqBuy — Root .gitignore
 # ============================================
 
 # ---------- Environment & Secrets ----------
@@ -11,6 +11,7 @@
 *.pem
 *.key
 secrets/
+keys.txt
 
 # ---------- Node / Frontend ----------
 node_modules/
