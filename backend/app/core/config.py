@@ -40,8 +40,8 @@ class Settings(BaseSettings):
     SENTRY_DSN: str = ""
     SENTRY_TRACES_SAMPLE_RATE: float = 0.1
 
-    # ---------- MongoDB ----------
-    MONGODB_URL: str = "mongodb://localhost:27017"
+    # ---------- MongoDB (Loaded from .env) ----------
+    MONGODB_URL: str
     MONGODB_DB_NAME: str = "kwiqbuy"
     MONGODB_TRANSACTIONS_ENABLED: bool = True
 
@@ -184,15 +184,11 @@ class Settings(BaseSettings):
     # ------------------------------------------------------------------
     # Normalizers
     # ------------------------------------------------------------------
-    @field_validator("PAYSTACK_SECRET_KEY", "PAYSTACK_PUBLIC_KEY", mode="before")
+    @field_validator("MONGODB_URL", "PAYSTACK_SECRET_KEY", "PAYSTACK_PUBLIC_KEY", mode="before")
     @classmethod
     def _strip_quotes_and_whitespace(cls, v):
         """
-        Handles the common .env copy-paste traps:
-            PAYSTACK_SECRET_KEY="sk_test_abc"    →  sk_test_abc
-            PAYSTACK_SECRET_KEY='sk_test_abc'    →  sk_test_abc
-            PAYSTACK_SECRET_KEY=sk_test_abc      →  sk_test_abc  (unchanged)
-            PAYSTACK_SECRET_KEY=sk_test_abc\\r\\n  →  sk_test_abc
+        Handles common .env copy-paste traps (quotes, trailing spaces, newline chars).
         """
         if v is None:
             return ""
@@ -252,10 +248,14 @@ def _mask(s: str) -> str:
 
 
 _log.info("Loaded .env from: %s", _ENV_FILE)
+_log.info("MONGODB_URL: %s", _mask(settings.MONGODB_URL))
 _log.info("PAYSTACK_SECRET_KEY: %s", _mask(settings.PAYSTACK_SECRET_KEY))
 _log.info("PAYSTACK_PUBLIC_KEY: %s", _mask(settings.PAYSTACK_PUBLIC_KEY))
 _log.info("PAYSTACK_BASE_URL: %s", settings.PAYSTACK_BASE_URL)
 _log.info("PAYSTACK_CALLBACK_URL: %s", settings.PAYSTACK_CALLBACK_URL)
+
+if not settings.MONGODB_URL:
+    _log.error("MONGODB_URL is missing. Database connection will fail.")
 
 if not settings.PAYSTACK_SECRET_KEY:
     _log.warning(
