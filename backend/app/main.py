@@ -63,9 +63,9 @@ app = FastAPI(
         "KwiqBuy marketplace API — vendors, products, multi-vendor orders, "
         "Paystack payments & vendor payouts, commissions, and analytics."
     ),
-    docs_url="/docs" if _show_docs else None,
-    redoc_url="/redoc" if _show_docs else None,
-    openapi_url="/openapi.json" if _show_docs else None,
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
     lifespan=lifespan,
     contact={"name": "KwiqBuy Support", "phone": settings.SUPPORT_PHONE},
 )
