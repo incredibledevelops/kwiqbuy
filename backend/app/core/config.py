@@ -21,165 +21,164 @@ class Settings(BaseSettings):
         case_sensitive=True,
     )
 
-    # ---------- App ----------
-    APP_NAME: str = "KwiqBuy API"
-    APP_ENV: str = "development"
-    DEBUG: bool = True
-    API_V1_PREFIX: str = "/api/v1"
-    FRONTEND_URL: str = "http://localhost:3000"
-    SITE_URL: str = "http://localhost:3000"
+    # ---------- App (Loaded from .env) ----------
+    APP_NAME: str
+    APP_ENV: str
+    DEBUG: bool
+    API_V1_PREFIX: str
+    FRONTEND_URL: str
+    SITE_URL: str
 
-    HOST: str = "0.0.0.0"
-    PORT: int = 8000
+    HOST: str
+    PORT: int
 
     # ---------- Logging ----------
-    LOG_LEVEL: str = "INFO"
-    LOG_JSON: bool = True
+    LOG_LEVEL: str
+    LOG_JSON: bool
 
     # ---------- Sentry ----------
     SENTRY_DSN: str = ""
     SENTRY_TRACES_SAMPLE_RATE: float = 0.1
 
-    # ---------- MongoDB (Loaded from .env) ----------
+    # ---------- MongoDB (Required from .env) ----------
     MONGODB_URL: str
-    MONGODB_DB_NAME: str = "kwiqbuy"
-    MONGODB_TRANSACTIONS_ENABLED: bool = True
+    MONGODB_DB_NAME: str
+    MONGODB_TRANSACTIONS_ENABLED: bool
 
     # ---------- Redis ----------
-    REDIS_URL: str = "redis://localhost:6379/0"
-    CACHE_TTL_SECONDS: int = 60
-    SEARCH_CACHE_TTL_SECONDS: int = 900
+    REDIS_URL: str
+
+    CACHE_TTL_SECONDS: int
+    SEARCH_CACHE_TTL_SECONDS: int
 
     # ---------- JWT ----------
-    JWT_SECRET_KEY: str = "change-me"
-    JWT_ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
-    REFRESH_TOKEN_EXPIRE_DAYS: int = 7
-    CUSTOMER_TOKEN_EXPIRE_DAYS: int = 30
-    CUSTOMER_REFRESH_EXPIRE_DAYS: int = 90
-    CUSTOMER_OTP_EXPIRE_MINUTES: int = 10
-    TWO_FA_TEMP_TOKEN_EXPIRE_MINUTES: int = 5
+    JWT_SECRET_KEY: str
+    JWT_ALGORITHM: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int
+    REFRESH_TOKEN_EXPIRE_DAYS: int
+    CUSTOMER_TOKEN_EXPIRE_DAYS: int
+    CUSTOMER_REFRESH_EXPIRE_DAYS: int
+    CUSTOMER_OTP_EXPIRE_MINUTES: int
+    TWO_FA_TEMP_TOKEN_EXPIRE_MINUTES: int
 
     # ---------- Paystack ----------
-    PAYSTACK_SECRET_KEY: str = ""
-    PAYSTACK_PUBLIC_KEY: str = ""
-    PAYSTACK_BASE_URL: str = "https://api.paystack.co"
-    PAYSTACK_CALLBACK_URL: str = "http://localhost:3000/order/callback"
+    PAYSTACK_SECRET_KEY: str
+    PAYSTACK_PUBLIC_KEY: str
+    PAYSTACK_BASE_URL: str
+    PAYSTACK_CALLBACK_URL: str
 
-    PAYSTACK_TRANSFER_ENABLED: bool = False
-    PAYSTACK_TRANSFER_TYPE: str = "ghipss"
-    PAYOUT_SCHEDULE: str = "manual"
-    PAYOUT_SCHEDULE_DAY: int = 1
-    PAYOUT_SCHEDULE_HOUR: int = 9
+    PAYSTACK_TRANSFER_ENABLED: bool
+    PAYSTACK_TRANSFER_TYPE: str
+    PAYOUT_SCHEDULE: str
+    PAYOUT_SCHEDULE_DAY: int
+    PAYOUT_SCHEDULE_HOUR: int
 
-    # ---------- CORS ----------
-    CORS_ORIGINS: str = (
-        "http://localhost:3000,http://localhost:3001,http://127.0.0.1:3000"
-    )
+    # ---------- CORS (Required from .env) ----------
+    CORS_ORIGINS: str
 
     # ---------- Uploads ----------
-    UPLOAD_DIR: str = "uploads"
-    MAX_UPLOAD_SIZE_MB: int = 5
-    ALLOWED_IMAGE_TYPES: str = "image/jpeg,image/png,image/webp"
-    EXIF_STRIP_ON_UPLOAD: bool = True
-    MAX_CSV_IMPORT_ROWS: int = 1000
+    UPLOAD_DIR: str
+    MAX_UPLOAD_SIZE_MB: int
+    ALLOWED_IMAGE_TYPES: str
+    EXIF_STRIP_ON_UPLOAD: bool
+    MAX_CSV_IMPORT_ROWS: int
 
     # ---------- Business ----------
-    DEFAULT_DELIVERY_FEE: float = 15.00
-    CURRENCY: str = "GHS"
-    FREE_DELIVERY_THRESHOLD: float = 100.0
+    DEFAULT_DELIVERY_FEE: float
+    CURRENCY: str
+    FREE_DELIVERY_THRESHOLD: float
 
     # ---------- Marketplace ----------
-    DEFAULT_PLATFORM_COMMISSION_PCT: float = 15.0
-    FOOD_COMMISSION_PCT: float = 20.0
-    RETAIL_COMMISSION_PCT: float = 10.0
-    MIN_VENDOR_PAYOUT_GHS: float = 50.0
-    PLATFORM_DELIVERY_CUT_PCT: float = 20.0
+    DEFAULT_PLATFORM_COMMISSION_PCT: float
+    FOOD_COMMISSION_PCT: float
+    RETAIL_COMMISSION_PCT: float
+    MIN_VENDOR_PAYOUT_GHS: float
+    PLATFORM_DELIVERY_CUT_PCT: float
 
     # ---------- Wallet ----------
-    WALLET_ENABLED: bool = True
-    WALLET_MIN_ORDER_FOR_APPLY: float = 1.0
-    WALLET_MAX_COVERAGE_PCT: float = 100.0
+    WALLET_ENABLED: bool
+    WALLET_MIN_ORDER_FOR_APPLY: float
+    WALLET_MAX_COVERAGE_PCT: float
 
     # ---------- Discount stacking ----------
-    STACK_PROMO_AND_LOYALTY: bool = True
-    STACK_WALLET_WITH_DISCOUNTS: bool = True
-    MAX_TOTAL_DISCOUNT_PCT: float = 0.0
+    STACK_PROMO_AND_LOYALTY: bool
+    STACK_WALLET_WITH_DISCOUNTS: bool
+    MAX_TOTAL_DISCOUNT_PCT: float
 
     # ---------- Marketplace behavior ----------
-    ALLOW_MIXED_CARTS: bool = False
-    FOOD_DEFAULT_RADIUS_KM: float = 15.0
-    FOOD_MAX_RADIUS_KM: float = 50.0
+    ALLOW_MIXED_CARTS: bool
+    FOOD_DEFAULT_RADIUS_KM: float
+    FOOD_MAX_RADIUS_KM: float
 
     # ---------- Rider ----------
-    RIDER_FEE_MODEL: str = "pct_of_delivery_fee"
-    RIDER_FLAT_FEE_GHS: float = 8.0
-    RIDER_PCT_OF_DELIVERY_FEE: float = 100.0
-    RIDER_LOCATION_TTL_HOURS: int = 24
-    RIDER_LOCATION_UPDATE_MIN_SECONDS: int = 10
+    RIDER_FEE_MODEL: str
+    RIDER_FLAT_FEE_GHS: float
+    RIDER_PCT_OF_DELIVERY_FEE: float
+    RIDER_LOCATION_TTL_HOURS: int
+    RIDER_LOCATION_UPDATE_MIN_SECONDS: int
 
     # ---------- Vendor apps ----------
-    VENDOR_APPLICATION_TTL_DAYS: int = 30
+    VENDOR_APPLICATION_TTL_DAYS: int
 
     # ---------- Audit ----------
-    AUDIT_LOG_RETENTION_DAYS: int = 730
+    AUDIT_LOG_RETENTION_DAYS: int
 
     # ---------- Security ----------
-    ADMIN_IP_ALLOWLIST_ENABLED: bool = False
-    ENFORCE_CORS_IN_PRODUCTION: bool = True
+    ADMIN_IP_ALLOWLIST_ENABLED: bool
+    ENFORCE_CORS_IN_PRODUCTION: bool
 
     # ---------- Subscription tiers ----------
-    VENDOR_TIERS_ENABLED: bool = True
+    VENDOR_TIERS_ENABLED: bool
 
     # ---------- Webhooks ----------
-    WEBHOOKS_ENABLED: bool = True
-    WEBHOOK_MAX_ATTEMPTS: int = 3
-    WEBHOOK_RETRY_INTERVAL_SECONDS: int = 60
-    WEBHOOK_TIMEOUT_SECONDS: float = 10.0
-    WEBHOOK_MAX_PER_VENDOR: int = 10
+    WEBHOOKS_ENABLED: bool
+    WEBHOOK_MAX_ATTEMPTS: int
+    WEBHOOK_RETRY_INTERVAL_SECONDS: int
+    WEBHOOK_TIMEOUT_SECONDS: float
+    WEBHOOK_MAX_PER_VENDOR: int
 
     # ---------- 2FA ----------
-    TWO_FA_ENABLED: bool = True
-    TWO_FA_ISSUER: str = "KwiqBuy Admin"
+    TWO_FA_ENABLED: bool
+    TWO_FA_ISSUER: str
 
     # ---------- PDF invoices ----------
-    INVOICE_DIR: str = "uploads/invoices"
+    INVOICE_DIR: str
 
     # ---------- Email ----------
     RESEND_API_KEY: str = ""
-    MAIL_FROM: str = "KwiqBuy <onboarding@resend.dev>"
-    MAIL_FROM_NAME: str = "KwiqBuy"
+    MAIL_FROM: str
+    MAIL_FROM_NAME: str
 
     # ---------- SMS ----------
     ARKESEL_API_KEY: str = ""
-    ARKESEL_SENDER_ID: str = "KwiqBuy"
-    ARKESEL_BASE_URL: str = "https://sms.arkesel.com/api/v2"
+    ARKESEL_SENDER_ID: str
+    ARKESEL_BASE_URL: str
 
     # ---------- Loyalty ----------
-    LOYALTY_POINTS_PER_CEDI: int = 1
-    LOYALTY_POINTS_TO_CEDI: float = 0.01
-    LOYALTY_MIN_REDEEM: int = 100
+    LOYALTY_POINTS_PER_CEDI: int
+    LOYALTY_POINTS_TO_CEDI: float
+    LOYALTY_MIN_REDEEM: int
 
     # ---------- Idempotency ----------
-    IDEMPOTENCY_TTL_HOURS: int = 24
+    IDEMPOTENCY_TTL_HOURS: int
 
     # ---------- Rate limits ----------
-    RATE_LIMIT_AUTH: str = "5/minute"
-    RATE_LIMIT_OTP: str = "3/minute"
-    RATE_LIMIT_ORDER: str = "20/minute"
-    RATE_LIMIT_VENDOR_APPLICATION: str = "3/hour"
-    RATE_LIMIT_VENDOR_PRODUCT_WRITE: str = "60/hour"
-    RATE_LIMIT_NEARBY: str = "30/minute"
-    RATE_LIMIT_BULK: str = "5/hour"
-    RATE_LIMIT_RIDER_LOCATION: str = "120/minute"
-    RATE_LIMIT_EXPORT: str = "10/hour"
+    RATE_LIMIT_AUTH: str
+    RATE_LIMIT_OTP: str
+    RATE_LIMIT_ORDER: str
+    RATE_LIMIT_VENDOR_APPLICATION: str
+    RATE_LIMIT_VENDOR_PRODUCT_WRITE: str
+    RATE_LIMIT_NEARBY: str
+    RATE_LIMIT_BULK: str
+    RATE_LIMIT_RIDER_LOCATION: str
+    RATE_LIMIT_EXPORT: str
 
     # ---------- Scheduler ----------
-    SCHEDULER_ENABLED: bool = True
+    SCHEDULER_ENABLED: bool
 
     # ---------- Support ----------
-    SUPPORT_PHONE: str = "0534634845"
-    SUPPORT_WHATSAPP: str = "233534634845"
+    SUPPORT_PHONE: str
+    SUPPORT_WHATSAPP: str
 
     # ------------------------------------------------------------------
     # Normalizers
@@ -249,6 +248,7 @@ def _mask(s: str) -> str:
 
 _log.info("Loaded .env from: %s", _ENV_FILE)
 _log.info("MONGODB_URL: %s", _mask(settings.MONGODB_URL))
+_log.info("CORS_ORIGINS: %s", settings.CORS_ORIGINS)
 _log.info("PAYSTACK_SECRET_KEY: %s", _mask(settings.PAYSTACK_SECRET_KEY))
 _log.info("PAYSTACK_PUBLIC_KEY: %s", _mask(settings.PAYSTACK_PUBLIC_KEY))
 _log.info("PAYSTACK_BASE_URL: %s", settings.PAYSTACK_BASE_URL)
